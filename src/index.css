@@ -23,10 +23,27 @@ body {
 }
 
 .swiper-pagination-bullet {
-  background: var(--color-accent) !important; /* Inactive color */
+  background: #94c6cb !important; /* Inactive color */
   opacity: 1 !important;
 }
 
 .swiper-pagination-bullet-active {
   background: var(--color-secondary) !important; /* Active color */
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #b0bec5;
+  opacity: 1;
+  margin: 0 10px;
+}
+.swiper-pagination-bullet-active {
+  background-color: #64b5f6;
+  width: 28px;
+  border-radius: 10px;
+}
+
+.swipper_pagination_arrow {
+  @apply z-20 cursor-pointer p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all hover:bg-primary active:scale-90 duration-200;
 }
