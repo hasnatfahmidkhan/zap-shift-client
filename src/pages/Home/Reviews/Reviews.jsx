@@ -109,7 +109,7 @@ const Reviews = ({ reviewsPromise }) => {
         </Swiper>
 
         {/* Navigation and pagination  */}
-        <div className="relative flex items-center justify-center gap-5 mt-12">
+        <div className="relative flex items-center justify-center gap-5 mt-8">
           {/* Navigation Buttons */}
           <button
             onClick={() => swiperRef?.current.swiper.slidePrev()}
