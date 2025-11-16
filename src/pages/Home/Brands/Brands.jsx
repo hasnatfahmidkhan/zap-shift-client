@@ -20,11 +20,16 @@ const brandsImg = [
 
 const Brands = () => {
   return (
-    <Marquee autoFill="true" pauseOnHover="true" className="">
-      {brandsImg.map((img) => (
-        <img className="mx-10" src={img} alt="" />
-      ))}
-    </Marquee>
+    <section>
+      <h2 className="text-3xl mb-10 font-bold text-secondary text-center">
+        We've helped thousands of sales teams
+      </h2>
+      <Marquee autoFill="true" pauseOnHover="true" className="">
+        {brandsImg.map((img) => (
+          <img className="mx-10" src={img} alt="" />
+        ))}
+      </Marquee>
+    </section>
   );
 };
 
