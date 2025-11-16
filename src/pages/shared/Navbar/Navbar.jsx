@@ -2,23 +2,25 @@ import { NavLink } from "react-router";
 import Logo from "../../../components/Logo/Logo";
 import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
 import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
+import PrimaryArrow from "../../../components/PrimaryArrow/PrimaryArrow";
+import MyLink from "../../../components/MyLink/MyLink";
 const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>Services</NavLink>
+        <MyLink to={"/"}>Services</MyLink>
       </li>
       <li>
-        <NavLink to={"/coverage"}>Coverage</NavLink>
+        <MyLink to={"/coverage"}>Coverage</MyLink>
       </li>
       <li>
-        <NavLink to={"/about-us"}>About Us</NavLink>
+        <MyLink to={"/about-us"}>About Us</MyLink>
       </li>
       <li>
-        <NavLink to={"/pricing"}>Pricing</NavLink>
+        <MyLink to={"/pricing"}>Pricing</MyLink>
       </li>
       <li>
-        <NavLink to={"/be-a-rider"}>Be a Rider</NavLink>
+        <MyLink to={"/be-a-rider"}>Be a Rider</MyLink>
       </li>
     </>
   );
@@ -29,7 +31,7 @@ const Navbar = () => {
           <Logo />
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal gap-3 text-accent text-base font-medium tracking-wide">
+          <ul className="flex items-center gap-5 text-accent text-base font-medium tracking-wide">
             {links}
           </ul>
         </div>
@@ -65,7 +67,10 @@ const Navbar = () => {
           </div>
           <div className="hidden lg:flex gap-4 ">
             <SecondaryBtn>Sign In</SecondaryBtn>
-            <PrimaryBtn>Be a Rider</PrimaryBtn>
+            <div className="flex items-center justify-center">
+              <PrimaryBtn>Be a Rider</PrimaryBtn>
+              <PrimaryArrow />
+            </div>
           </div>
         </div>
       </div>

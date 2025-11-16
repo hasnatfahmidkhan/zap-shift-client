@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
+import PrimaryArrow from "../../../components/PrimaryArrow/PrimaryArrow";
 
 const faqDes = [
   {
@@ -57,8 +58,10 @@ const Faq = () => {
           </div>
         ))}
       </div>
-
-      <PrimaryBtn >See More FAQ's</PrimaryBtn>
+      <div className="flex items-center justify-center">
+        <PrimaryBtn>See More FAQ's</PrimaryBtn>
+        <PrimaryArrow />
+      </div>
     </section>
   );
 };

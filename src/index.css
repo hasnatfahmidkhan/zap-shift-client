@@ -22,9 +22,6 @@ body {
   background-color: var(--color-base-200);
 }
 
-nav a.active {
-  @apply bg-primary rounded-full;
-}
 
 .heading {
   @apply text-3xl font-bold text-secondary;
