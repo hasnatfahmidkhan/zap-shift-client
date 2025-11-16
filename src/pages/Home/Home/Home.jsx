@@ -1,5 +1,6 @@
 import Banner from "../Banner/Banner";
 import Brands from "../Brands/Brands";
+import Faq from "../Faq/Faq";
 import FeatureCard from "../FeaturedCard/FeatureCard";
 import HowItWorks from "../HowItWorks/HowItWorks";
 import Reviews from "../Reviews/Reviews";
@@ -14,6 +15,7 @@ const Home = () => {
       <Brands />
       <FeatureCard />
       <Reviews reviewsPromise={reviewsPromise} />
+      <Faq />
     </section>
   );
 };

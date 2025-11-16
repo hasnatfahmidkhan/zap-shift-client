@@ -1,5 +1,7 @@
 import { NavLink } from "react-router";
 import Logo from "../../../components/Logo/Logo";
+import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
+import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
 const Navbar = () => {
   const links = (
     <>
@@ -21,8 +23,8 @@ const Navbar = () => {
     </>
   );
   return (
-    <nav className="bg-base-100 shadow-sm px-7 py-5">
-      <div className="max-w-7xl mx-auto navbar">
+    <nav className="bg-base-100 shadow-sm p-4">
+      <div className="p-0 max-w-7xl mx-auto navbar">
         <div className="navbar-start">
           <Logo />
         </div>
@@ -33,10 +35,14 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost pr-0 lg:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -52,13 +58,14 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
+              className="menu menu-lg dropdown-content bg-base-100 rounded-box z-10 mt-3 w-56 font-medium tracking-wide p-2 shadow"
             >
               {links}
             </ul>
           </div>
-          <div className="hidden lg:flex">
-            <a className="btn">Button</a>
+          <div className="hidden lg:flex gap-4 ">
+            <SecondaryBtn>Sign In</SecondaryBtn>
+            <PrimaryBtn>Be a Rider</PrimaryBtn>
           </div>
         </div>
       </div>
