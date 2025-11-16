@@ -29,9 +29,9 @@ const FeatureCard = () => {
           className="bg-base-100 rounded-2xl p-7 flex flex-col md:flex-row items-center gap-10 text-secondary "
         >
           <div className="md:border-r-2 md:border-dashed md:pr-10">
-            <img className="h-36 w-full object-cover" src={card.img} alt="" loading="lazy" />
+            <img className="h-36 w- object-cover" src={card.img} alt="" loading="lazy" />
           </div>
-          <div className="space-y-3">
+          <div className="space-y-3 flex-1">
             <h2 className="text-2xl font-bold ">{card.title}</h2>
             <p className="text-accent font-medium tracking-wide">{card.des}</p>
           </div>
