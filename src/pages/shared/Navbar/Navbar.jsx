@@ -10,13 +10,13 @@ const Navbar = () => {
         <NavLink to={"/coverage"}>Coverage</NavLink>
       </li>
       <li>
-        <NavLink>About Us</NavLink>
+        <NavLink to={"/about-us"}>About Us</NavLink>
       </li>
       <li>
-        <NavLink>Pricing</NavLink>
+        <NavLink to={"/pricing"}>Pricing</NavLink>
       </li>
       <li>
-        <NavLink>Be a Rider</NavLink>
+        <NavLink to={"/be-a-rider"}>Be a Rider</NavLink>
       </li>
     </>
   );
@@ -27,7 +27,7 @@ const Navbar = () => {
           <Logo />
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-accent text-base font-medium tracking-wide">
+          <ul className="menu menu-horizontal gap-3 text-accent text-base font-medium tracking-wide">
             {links}
           </ul>
         </div>
