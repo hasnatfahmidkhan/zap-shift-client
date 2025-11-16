@@ -4,10 +4,10 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink>Services</NavLink>
+        <NavLink to={"/"}>Services</NavLink>
       </li>
       <li>
-        <NavLink>Coverage</NavLink>
+        <NavLink to={"/coverage"}>Coverage</NavLink>
       </li>
       <li>
         <NavLink>About Us</NavLink>
@@ -32,7 +32,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="dropdown">
+          <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
             >
               {links}
             </ul>

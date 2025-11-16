@@ -21,7 +21,7 @@ const brandsImg = [
 const Brands = () => {
   return (
     <section>
-      <h2 className="text-3xl mb-10 font-bold text-secondary text-center">
+      <h2 className="heading mb-10 text-center">
         We've helped thousands of sales teams
       </h2>
       <Marquee autoFill="true" pauseOnHover="true" className="">

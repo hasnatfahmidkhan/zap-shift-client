@@ -25,7 +25,7 @@ const Banner = () => {
       autoplay={{
         delay: 3000,
       }}
-      className="rounded-xl md:rounded-3xl overflow-hidden xl:h-[580px] w-full "
+      className="rounded-xl md:rounded-3xl overflow-hidden xl:h-[580px] w-full"
     >
       {images.map((img) => (
         <SwiperSlide>

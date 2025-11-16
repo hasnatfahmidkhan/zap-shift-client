@@ -24,7 +24,7 @@ const HowItWorks = () => {
   ];
   return (
     <div className="space-y-6 w-full xl:w-11/12 mx-auto">
-      <h3 className="text-secondary text-3xl font-bold">How it Works</h3>
+      <h3 className="heading">How it Works</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {cardDetails.map((card) => (

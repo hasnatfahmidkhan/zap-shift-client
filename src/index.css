@@ -22,6 +22,10 @@ body {
   background-color: var(--color-base-200);
 }
 
+.heading {
+  @apply text-3xl font-bold text-secondary;
+}
+
 .swiper-pagination-bullet {
   background: #94c6cb !important; /* Inactive color */
   opacity: 1 !important;

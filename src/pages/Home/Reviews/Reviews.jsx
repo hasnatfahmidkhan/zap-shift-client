@@ -25,7 +25,7 @@ const Reviews = ({ reviewsPromise }) => {
       <div className="flex flex-col justify-center items-center text-center gap-8 mb-10">
         <img className="h-full" src={customerTop} alt="" />
         <div className="space-y-4">
-          <h3 className="text-3xl font-bold text-secondary ">What our customers are sayings</h3>
+          <h3 className="heading">What our customers are sayings</h3>
           <p className="max-w-2xl text-accent tracking-wide font-medium">
             Enhance posture, mobility, and well-being effortlessly with Posture
             Pro. Achieve proper alignment, reduce pain, and strengthen your body
