@@ -1,13 +1,23 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const ForgetPassword = () => {
+  const { resetPassFunc } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleForget = () => {};
+  const handleForget = async ({ email }) => {
+    try {
+      await resetPassFunc(email);
+      toast.success("Check your email!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <section>
       {/* Heading  */}

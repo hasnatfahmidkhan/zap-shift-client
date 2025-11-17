@@ -4,7 +4,13 @@ import SocialBtn from "../shared/SocialBtn/SocialBtn";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 const Login = () => {
-  const { GoogleLoginFunc, setUser, setAuthLoading } = useAuth();
+  const {
+    GoogleLoginFunc,
+    setUser,
+    setAuthLoading,
+    signInEmailPassFunc,
+    authLoading,
+  } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -12,8 +18,17 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const handleLogin = (data) => {
-    console.log(data);
+  const handleLogin = async ({ email, password }) => {
+    try {
+      const result = await signInEmailPassFunc(email, password);
+      const currentUser = result.user;
+      setUser(currentUser);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setAuthLoading(false);
+    }
   };
 
   // google login
@@ -22,10 +37,11 @@ const Login = () => {
       const result = await GoogleLoginFunc();
       const currentUser = result.user;
       setUser(currentUser);
-      setAuthLoading(false);
       navigate("/");
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setAuthLoading(false);
     }
   };
 
@@ -48,6 +64,7 @@ const Login = () => {
                   Email<span className="text-red-500">*</span>
                 </label>
                 <input
+                  disabled={authLoading}
                   {...register("email", { required: "Your email is required" })}
                   type="email"
                   className="input-style border"
@@ -66,6 +83,7 @@ const Login = () => {
                   Password<span className="text-red-500">*</span>
                 </label>
                 <input
+                  disabled={authLoading}
                   type="password"
                   className="input-style"
                   placeholder="Password"
@@ -99,8 +117,18 @@ const Login = () => {
                 </div>
               </div>
               <div>
-                <button className="btn btn-primary text-[#000000] my-2 w-full">
-                  Login
+                <button
+                  disabled={authLoading}
+                  className="btn btn-primary text-[#000000] my-2 w-full disabled:bg-primary disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {authLoading ? (
+                    <div className="flex items-center gap-2">
+                      <span className="loading loading-spinner text-blue-400"></span>
+                      Loading...
+                    </div>
+                  ) : (
+                    "Login"
+                  )}
                 </button>
                 <p className="text-base text-accent mt-1 tracking-wide">
                   Don't have any account?{" "}

@@ -29,10 +29,11 @@ const Register = () => {
       const result = await GoogleLoginFunc();
       const currentUser = result.user;
       setUser(currentUser);
-      setAuthLoading(false);
       navigate("/");
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setAuthLoading(false);
     }
   };
 
