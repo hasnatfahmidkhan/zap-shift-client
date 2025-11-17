@@ -3,12 +3,24 @@ import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
 import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
 import PrimaryArrow from "../../../components/PrimaryArrow/PrimaryArrow";
 import MyLink from "../../../components/MyLink/MyLink";
-import { useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { TbLogout } from "react-icons/tb";
+import { FaRegUser } from "react-icons/fa";
+import ProfileLogo from "../../../components/ProfileLogo/ProfileLogo";
 const Navbar = () => {
   const { user, signOutFunc } = useAuth();
   const navigate = useNavigate();
+  const handleSignOut = async () => {
+    try {
+      await signOutFunc();
+      toast.success("Sign Out Successfully!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   const links = (
     <>
       <li>
@@ -28,19 +40,67 @@ const Navbar = () => {
       </li>
     </>
   );
+  const phoneLinks = (
+    <>
+      <li>
+        <NavLink className={"pb-3.5"} to={"/"}>
+          Services
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className={"pb-3.5"} to={"/coverage"}>
+          Coverage
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className={"pb-3.5"} to={"/about-us"}>
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className={"pb-3.5"} to={"/pricing"}>
+          Pricing
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className={"pb-3.5"} to={"/be-a-rider"}>
+          Be a Rider
+        </NavLink>
+      </li>
+    </>
+  );
 
-  const handleSignOut = async () => {
-    try {
-      await signOutFunc();
-      toast.success("Sign Out Successfully!");
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
+  const userLinks = (
+    <>
+      <li>
+        <Link className={"pb-3.5"} to={"/profile"}>
+          <FaRegUser size={16} />
+          Profile
+        </Link>
+      </li>
+      <li>
+        <button
+          className="text-red-500 flex items-center gap-1 pb-3.5"
+          onClick={handleSignOut}
+        >
+          <TbLogout size={20} />
+          Log out
+        </button>
+      </li>
+    </>
+  );
+
   return (
     <nav className="bg-base-100 shadow-sm p-4">
       <div className="p-0 max-w-7xl mx-auto navbar">
-        <div className="navbar-start">
+        <div className="navbar-start gap-2">
+          {user && (
+            <ProfileLogo
+              user={user}
+              userLinks={userLinks}
+              className={"xl:hidden dropdown-start"}
+            />
+          )}
           <Logo />
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -49,12 +109,8 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost pr-0 lg:hidden"
-            >
+          <div className="dropdown dropdown-end lg:hidden">
+            <div tabIndex={0} role="button" className="mr-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -73,14 +129,20 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-lg dropdown-content bg-base-100 rounded-box z-10 mt-3 w-56 font-medium tracking-wide p-2 shadow"
+              className="menu menu-lg dropdown-content bg-base-100 rounded-box z-10 mt-3 w-56 font-medium tracking-wide p-2 shadow divide-y divide-gray-400 divide-dashed space-y-2 border border-gray-200"
             >
-              {links}
+              {phoneLinks}
             </ul>
           </div>
-          <div className="hidden lg:flex gap-4 ">
+          <div className="hidden lg:flex gap-4">
             {user ? (
-              <SecondaryBtn onClick={handleSignOut}>Log out</SecondaryBtn>
+              user && (
+                <ProfileLogo
+                  user={user}
+                  userLinks={userLinks}
+                  className={"dropdown-end"}
+                />
+              )
             ) : (
               <SecondaryBtn onClick={() => navigate("/login")}>
                 Sign In

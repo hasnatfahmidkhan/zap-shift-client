@@ -4,10 +4,10 @@ import logo from "../../assets/logo.png";
 const Logo = ({ className }) => {
   return (
     <Link>
-      <div className="flex items-end cursor-pointer">
-        <img src={logo} alt="zap shift logo" />
+      <div className={` ${className} flex items-end cursor-pointer`}>
+        <img className="w-8 md:w-full" src={logo} alt="zap shift logo" />
         <h3
-          className={`text-3xl -ms-2.5 font-extrabold text-[#303030] translate-y-1 ${className}`}
+          className={`text-2xl md:text-3xl -ms-2.5 font-extrabold text-[#303030] translate-y-1`}
         >
           ZapShift
         </h3>
