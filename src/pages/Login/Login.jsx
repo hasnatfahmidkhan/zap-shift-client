@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import SocialBtn from "../shared/SocialBtn/SocialBtn";
 import useAuth from "../../hooks/useAuth";
@@ -12,6 +12,7 @@ const Login = () => {
     authLoading,
   } = useAuth();
   const navigate = useNavigate();
+  const { state } = useLocation();
   const {
     register,
     handleSubmit,
@@ -23,7 +24,7 @@ const Login = () => {
       const result = await signInEmailPassFunc(email, password);
       const currentUser = result.user;
       setUser(currentUser);
-      navigate("/");
+      navigate(state || "/");
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -37,7 +38,7 @@ const Login = () => {
       const result = await GoogleLoginFunc();
       const currentUser = result.user;
       setUser(currentUser);
-      navigate("/");
+      navigate(state || "/");
     } catch (error) {
       toast.error(error.message);
     } finally {

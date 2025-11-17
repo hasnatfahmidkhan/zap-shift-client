@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import imageUpload from "../../assets/image-upload.png";
 import { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -16,6 +16,7 @@ const Register = () => {
     updateProfileFunc,
   } = useAuth();
   const navigate = useNavigate();
+  const { state } = useLocation();
   const fileInputRef = useRef();
   const {
     register,
@@ -47,7 +48,7 @@ const Register = () => {
       await updateProfileFunc(name, profileImg);
       const currentUser = result.user;
       setUser(currentUser);
-      navigate("/");
+      navigate(state || "/");
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -60,7 +61,7 @@ const Register = () => {
       const result = await GoogleLoginFunc();
       const currentUser = result.user;
       setUser(currentUser);
-      navigate("/");
+      navigate(state || "/");
     } catch (error) {
       toast.error(error.message);
     } finally {

@@ -46,7 +46,7 @@ const Navbar = () => {
         <MyLink to={"/pricing"}>Pricing</MyLink>
       </li>
       <li>
-        <MyLink to={"/be-a-rider"}>Be a Rider</MyLink>
+        <MyLink to={"/send-parcel"}>Send Parcel</MyLink>
       </li>
     </>
   );
