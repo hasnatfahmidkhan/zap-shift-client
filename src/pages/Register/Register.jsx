@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import SocialBtn from "../shared/SocialBtn/SocialBtn";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 const Register = () => {
   const {
     GoogleLoginFunc,
@@ -12,6 +13,7 @@ const Register = () => {
     setAuthLoading,
     registerEmailPassFunc,
     authLoading,
+    updateProfileFunc,
   } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef();
@@ -26,10 +28,23 @@ const Register = () => {
   const photoInput = watch("photo");
 
   const handleRegister = async (data) => {
-    console.log(data);
     try {
+      setAuthLoading(true);
       const { email, password, photo, name } = data;
+      //* get img file
+      const imgFile = photo[0];
+      //* create new formData instance
+      const formData = new FormData();
+      //* append img file into formData
+      formData.append("image", imgFile);
+      //* hosting the img
+      const res = await axios.post(import.meta.env.VITE_IMG_HOSTING, formData);
+      //* get the img url
+      const profileImg = res.data?.data.url;
+      //* register user
       const result = await registerEmailPassFunc(email, password);
+      //* update user profile
+      await updateProfileFunc(name, profileImg);
       const currentUser = result.user;
       setUser(currentUser);
       navigate("/");
@@ -39,7 +54,6 @@ const Register = () => {
       setAuthLoading(false);
     }
   };
-
   // google login
   const handleGoogleLogin = async () => {
     try {
@@ -83,6 +97,13 @@ const Register = () => {
                       const file = value[0];
                       if (!file.type.startsWith("image/")) {
                         return "Please select an image file";
+                      }
+                      const maxSize = 2 * 1024 * 1024;
+                      if (file.size > maxSize) {
+                        return `File size must be less than 2 MB. Your file size is ${(
+                          file.size /
+                          (1024 * 1024)
+                        ).toFixed(2)} MB`;
                       }
                       return true;
                     },

@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 
@@ -21,6 +22,12 @@ const AuthProvider = ({ children }) => {
   const registerEmailPassFunc = (email, password) => {
     setAuthLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  // update profile
+  const updateProfileFunc = (displayName, photoURL) => {
+    setAuthLoading(true);
+    return updateProfile(auth.currentUser, { displayName, photoURL });
   };
 
   // sign in with email pass
@@ -65,6 +72,7 @@ const AuthProvider = ({ children }) => {
     resetPassFunc,
     signInEmailPassFunc,
     registerEmailPassFunc,
+    updateProfileFunc,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
