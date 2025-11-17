@@ -4,7 +4,7 @@ import { FaArrowRight } from "react-icons/fa";
 const SecondaryBtn = ({ children, className, onClick }) => {
   return (
     <button
-      onClick={() => onClick}
+      onClick={onClick}
       className={`btn text-black font-bold text-xl rounded-xl py-6 px-8 ${className}`}
     >
       {children}

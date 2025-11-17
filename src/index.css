@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "tailwindcss";
 @plugin "daisyui" {
@@ -15,6 +15,8 @@
   --color-accent-content: #dadada;
   --color-base-100: #fff;
   --color-base-200: #eaeced;
+  --color-auth-bg: #fafdf0;
+  --color-auth-primary: #000000;
 }
 
 body {
@@ -22,6 +24,9 @@ body {
   background-color: var(--color-base-200);
 }
 
+.auth-font {
+  font-family: "Inter", sans-serif;
+}
 
 .heading {
   @apply text-3xl font-bold text-secondary;
@@ -51,4 +56,13 @@ body {
 
 .swipper_pagination_arrow {
   @apply z-20 cursor-pointer p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all hover:bg-primary active:scale-90 duration-200;
+}
+
+/* auth layout css  */
+.label {
+  @apply text-[#000000] font-medium tracking-wide text-sm;
+}
+
+.input-style {
+  @apply input w-full mt-2;
 }

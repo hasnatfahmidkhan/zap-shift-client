@@ -1,10 +1,11 @@
-import { NavLink } from "react-router";
 import Logo from "../../../components/Logo/Logo";
 import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
 import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
 import PrimaryArrow from "../../../components/PrimaryArrow/PrimaryArrow";
 import MyLink from "../../../components/MyLink/MyLink";
+import { useNavigate } from "react-router";
 const Navbar = () => {
+  const navigate = useNavigate();
   const links = (
     <>
       <li>
@@ -31,7 +32,7 @@ const Navbar = () => {
           <Logo />
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="flex items-center gap-5 text-accent text-base font-medium tracking-wide">
+          <ul className="flex items-center gap-3 text-accent text-base font-medium tracking-wide">
             {links}
           </ul>
         </div>
@@ -66,7 +67,9 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="hidden lg:flex gap-4 ">
-            <SecondaryBtn>Sign In</SecondaryBtn>
+            <SecondaryBtn onClick={() => navigate("/login")}>
+              Sign In
+            </SecondaryBtn>
             <div className="flex items-center justify-center">
               <PrimaryBtn>Be a Rider</PrimaryBtn>
               <PrimaryArrow />

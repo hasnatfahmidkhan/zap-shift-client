@@ -1,8 +1,14 @@
 import { useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 import { useLoaderData } from "react-router";
 import { FaSearch } from "react-icons/fa";
+import L from "leaflet";
+
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+const DefaultIcon = L.icon({
+  iconUrl: markerIcon,
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const Coverage = () => {
   const centers = useLoaderData();
