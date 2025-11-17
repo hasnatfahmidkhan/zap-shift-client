@@ -40,7 +40,7 @@ const ForgetPassword = () => {
               </div>
 
               <div>
-                <button className="btn btn-primary text-[var(--color-auth-primary)] my-2 w-full">
+                <button className="btn btn-primary text-[#000000] my-2 w-full">
                   Send
                 </button>
                 <p className="text-base text-accent mt-1 tracking-wide">

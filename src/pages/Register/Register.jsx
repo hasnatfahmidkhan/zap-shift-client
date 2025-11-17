@@ -1,9 +1,13 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import imageUpload from "../../assets/image-upload.png";
 import { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import SocialBtn from "../shared/SocialBtn/SocialBtn";
+import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 const Register = () => {
+  const { GoogleLoginFunc, setUser, setAuthLoading } = useAuth();
+  const navigate = useNavigate();
   const fileInputRef = useRef();
   const {
     register,
@@ -17,6 +21,19 @@ const Register = () => {
 
   const handleRegister = (data) => {
     console.log(data);
+  };
+
+  // google login
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await GoogleLoginFunc();
+      const currentUser = result.user;
+      setUser(currentUser);
+      setAuthLoading(false);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -173,7 +190,7 @@ const Register = () => {
                 )}
               </div>
               <div>
-                <button className="btn btn-primary text-[var(--color-auth-primary)] my-2 w-full">
+                <button className="btn btn-primary text-[#000000] my-2 w-full">
                   Register
                 </button>
                 <p className="text-base text-accent mt-1 tracking-wide">
@@ -189,7 +206,7 @@ const Register = () => {
             </fieldset>
           </form>
           <div className="divider font-medium">OR</div>
-          <SocialBtn />
+          <SocialBtn onClick={handleGoogleLogin} />
         </div>
       </div>
     </section>

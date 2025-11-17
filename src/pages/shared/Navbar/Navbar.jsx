@@ -4,7 +4,10 @@ import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
 import PrimaryArrow from "../../../components/PrimaryArrow/PrimaryArrow";
 import MyLink from "../../../components/MyLink/MyLink";
 import { useNavigate } from "react-router";
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 const Navbar = () => {
+  const { user, signOutFunc } = useAuth();
   const navigate = useNavigate();
   const links = (
     <>
@@ -25,6 +28,15 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleSignOut = async () => {
+    try {
+      await signOutFunc();
+      toast.success("Sign Out Successfully!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <nav className="bg-base-100 shadow-sm p-4">
       <div className="p-0 max-w-7xl mx-auto navbar">
@@ -67,9 +79,13 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="hidden lg:flex gap-4 ">
-            <SecondaryBtn onClick={() => navigate("/login")}>
-              Sign In
-            </SecondaryBtn>
+            {user ? (
+              <SecondaryBtn onClick={handleSignOut}>Log out</SecondaryBtn>
+            ) : (
+              <SecondaryBtn onClick={() => navigate("/login")}>
+                Sign In
+              </SecondaryBtn>
+            )}
             <div className="flex items-center justify-center">
               <PrimaryBtn>Be a Rider</PrimaryBtn>
               <PrimaryArrow />

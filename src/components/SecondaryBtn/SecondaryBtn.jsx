@@ -1,5 +1,3 @@
-import React from "react";
-import { FaArrowRight } from "react-icons/fa";
 
 const SecondaryBtn = ({ children, className, onClick }) => {
   return (
