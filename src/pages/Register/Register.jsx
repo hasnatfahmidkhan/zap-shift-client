@@ -6,7 +6,13 @@ import SocialBtn from "../shared/SocialBtn/SocialBtn";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 const Register = () => {
-  const { GoogleLoginFunc, setUser, setAuthLoading } = useAuth();
+  const {
+    GoogleLoginFunc,
+    setUser,
+    setAuthLoading,
+    registerEmailPassFunc,
+    authLoading,
+  } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef();
   const {
@@ -19,8 +25,19 @@ const Register = () => {
   // watch the photo input value changes
   const photoInput = watch("photo");
 
-  const handleRegister = (data) => {
+  const handleRegister = async (data) => {
     console.log(data);
+    try {
+      const { email, password, photo, name } = data;
+      const result = await registerEmailPassFunc(email, password);
+      const currentUser = result.user;
+      setUser(currentUser);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setAuthLoading(false);
+    }
   };
 
   // google login
@@ -73,6 +90,7 @@ const Register = () => {
                   render={({ field }) => (
                     <>
                       <input
+                        disabled={authLoading}
                         ref={fileInputRef}
                         type="file"
                         accept="image/*"
@@ -109,7 +127,9 @@ const Register = () => {
                 <label className="label">
                   Name<span className="text-red-500">*</span>
                 </label>
+
                 <input
+                  disabled={authLoading}
                   {...register("name", {
                     required: "Your name is required",
                     minLength: {
@@ -148,6 +168,7 @@ const Register = () => {
                   Email<span className="text-red-500">*</span>
                 </label>
                 <input
+                  disabled={authLoading}
                   {...register("email", { required: "Your email is required" })}
                   type="email"
                   className="input-style"
@@ -166,6 +187,7 @@ const Register = () => {
                   Password<span className="text-red-500">*</span>
                 </label>
                 <input
+                  disabled={authLoading}
                   type="password"
                   className="input-style"
                   placeholder="Password"
@@ -191,8 +213,18 @@ const Register = () => {
                 )}
               </div>
               <div>
-                <button className="btn btn-primary text-[#000000] my-2 w-full">
-                  Register
+                <button
+                  disabled={authLoading}
+                  className="btn btn-primary text-[#000000] my-2 w-full disabled:bg-primary disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {authLoading ? (
+                    <div className="flex items-center gap-2">
+                      <span className="loading loading-spinner text-blue-400"></span>
+                      Loading...
+                    </div>
+                  ) : (
+                    "Register"
+                  )}
                 </button>
                 <p className="text-base text-accent mt-1 tracking-wide">
                   Already have an account?{" "}

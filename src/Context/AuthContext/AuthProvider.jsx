@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import {
+  createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
@@ -15,6 +16,12 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [authLoading, setAuthLoading] = useState(true);
+
+  // create user with email pass
+  const registerEmailPassFunc = (email, password) => {
+    setAuthLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
   // sign in with email pass
   const signInEmailPassFunc = (email, password) => {
@@ -57,6 +64,7 @@ const AuthProvider = ({ children }) => {
     signOutFunc,
     resetPassFunc,
     signInEmailPassFunc,
+    registerEmailPassFunc,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
