@@ -6,7 +6,7 @@ const ProfileLogo = ({ user, userLinks, className }) => {
       <div
         tabIndex={0}
         role="button"
-        className="bg-primary p-1 w-16 h-16 rounded-full cursor-pointer relative"
+        className="bg-primary p-1 w-14 h-14 rounded-full cursor-pointer relative"
       >
         <img
           className="w-full h-full object-cover rounded-full"

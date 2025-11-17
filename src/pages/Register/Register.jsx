@@ -71,7 +71,7 @@ const Register = () => {
   return (
     <section>
       <div className="mb-5 space-y-2">
-        <h2 className="text-5xl font-bold">Create an Account</h2>
+        <h2 className="text-4xl md:text-5xl font-bold">Create an Account</h2>
         <p className="text-[#000000] font-medium tracking-wide">
           Register with ZapShift
         </p>

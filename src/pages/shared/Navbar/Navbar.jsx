@@ -9,6 +9,16 @@ import toast from "react-hot-toast";
 import { TbLogout } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import ProfileLogo from "../../../components/ProfileLogo/ProfileLogo";
+import {
+  Bike,
+  Info,
+  LogOut,
+  Map,
+  Settings,
+  Tags,
+  UserCog,
+  UserPen,
+} from "lucide-react";
 const Navbar = () => {
   const { user, signOutFunc } = useAuth();
   const navigate = useNavigate();
@@ -43,47 +53,63 @@ const Navbar = () => {
   const phoneLinks = (
     <>
       <li>
-        <NavLink className={"pb-3.5"} to={"/"}>
+        <NavLink className={"phone-link"} to={"/"}>
+          <Settings />
           Services
         </NavLink>
       </li>
       <li>
-        <NavLink className={"pb-3.5"} to={"/coverage"}>
+        <NavLink className={"phone-link"} to={"/coverage"}>
+          <Map />
           Coverage
         </NavLink>
       </li>
       <li>
-        <NavLink className={"pb-3.5"} to={"/about-us"}>
+        <NavLink className={"phone-link"} to={"/about-us"}>
+          <Info />
           About Us
         </NavLink>
       </li>
       <li>
-        <NavLink className={"pb-3.5"} to={"/pricing"}>
+        <NavLink className={"phone-link"} to={"/pricing"}>
+          <Tags />
           Pricing
         </NavLink>
       </li>
+
       <li>
-        <NavLink className={"pb-3.5"} to={"/be-a-rider"}>
+        <NavLink className={"phone-link"} to={"/be-a-rider"}>
+          <Bike />
           Be a Rider
         </NavLink>
       </li>
+      {!user && (
+        <>
+          <li>
+            <NavLink className={"phone-link"} to={"/login"}>
+              <UserPen />
+              Sign In
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
   const userLinks = (
     <>
       <li>
-        <Link className={"pb-3.5"} to={"/profile"}>
-          <FaRegUser size={16} />
+        <Link className={"mb-2.5 bg-base-100 text-[#000000]"} to={"/profile"}>
+          <UserCog />
           Profile
         </Link>
       </li>
       <li>
         <button
-          className="text-red-500 flex items-center gap-1 pb-3.5"
+          className="text-red-500 flex items-center gap-1 mb-2.5 bg-base-100 text-[#000000]"
           onClick={handleSignOut}
         >
-          <TbLogout size={20} />
+          <LogOut />
           Log out
         </button>
       </li>
@@ -98,7 +124,7 @@ const Navbar = () => {
             <ProfileLogo
               user={user}
               userLinks={userLinks}
-              className={"xl:hidden dropdown-start"}
+              className={"dropdown-start mr-2"}
             />
           )}
           <Logo />
@@ -135,15 +161,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="hidden lg:flex gap-4">
-            {user ? (
-              user && (
-                <ProfileLogo
-                  user={user}
-                  userLinks={userLinks}
-                  className={"dropdown-end"}
-                />
-              )
-            ) : (
+            {!user && (
               <SecondaryBtn onClick={() => navigate("/login")}>
                 Sign In
               </SecondaryBtn>
