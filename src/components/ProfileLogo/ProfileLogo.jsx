@@ -3,6 +3,7 @@ import { IoMenu } from "react-icons/io5";
 const ProfileLogo = ({ user, userLinks, className }) => {
   return (
     <div className={`dropdown ${className}`}>
+      
       <div
         tabIndex={0}
         role="button"
@@ -15,7 +16,7 @@ const ProfileLogo = ({ user, userLinks, className }) => {
           onError={(e) => (e.target.src = "profile.png")}
         />
         <span className="absolute bottom-1 right-1 bg-primary rounded-full p-0.5">
-          <IoMenu color="#000000"/>
+          <IoMenu color="#000000" />
         </span>
       </div>
       <ul

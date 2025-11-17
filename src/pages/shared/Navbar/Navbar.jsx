@@ -106,7 +106,7 @@ const Navbar = () => {
       </li>
       <li>
         <button
-          className="text-red-500 flex items-center gap-1 mb-2.5 bg-base-100 text-[#000000]"
+          className="text-red-500 flex items-center gap-1 mb-2.5 bg-base-100"
           onClick={handleSignOut}
         >
           <LogOut />

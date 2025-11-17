@@ -34,14 +34,14 @@ const Reviews = ({ reviewsPromise }) => {
         </div>
       </div>
 
-      <div className="px-12">
+      <div className="md:px-12">
         <Swiper
           ref={swiperRef}
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
           slidesPerView={1}
-          spaceBetween={20}
+          spaceBetween={10}
           modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
           pagination={{ clickable: true, el: ".custom-pagination" }}
           loop={true}
@@ -56,13 +56,20 @@ const Reviews = ({ reviewsPromise }) => {
             slideShadows: false,
           }}
           breakpoints={{
+            640: {
+              slidesPerView: 1.2,
+              spaceBetween: 15,
+            },
             768: {
               slidesPerView: 3,
+              spaceBetween: 20,
             },
             1024: {
               slidesPerView: 3,
+              spaceBetween: 20,
             },
           }}
+          className="h-full"
         >
           {reviews.map((review) => (
             <SwiperSlide key={review.id}>
@@ -74,7 +81,7 @@ const Reviews = ({ reviewsPromise }) => {
                       : "scale-90 opacity-50 z-0"
                   }`}
                 >
-                  <div className="bg-white rounded-xl shadow-lg p-8 h-full flex flex-col">
+                  <div className="bg-white rounded-xl shadow-lg p-8 h-72 flex flex-col ">
                     <img className="w-fit" src={reviewQuote} alt="" />
                     {/* Review Text */}
                     <p className="text-gray-700 text-sm leading-relaxed mb-8 ">
@@ -85,7 +92,7 @@ const Reviews = ({ reviewsPromise }) => {
                     <div className="border-b border-dashed border-secondary mb-6"></div>
 
                     {/* User Info */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 h-full">
                       <img
                         src={review.user_photoURL}
                         alt={review.userName}
