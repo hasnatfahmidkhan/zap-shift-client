@@ -1,6 +1,9 @@
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
   const serviceCenters = useLoaderData();
@@ -8,8 +11,35 @@ const SendParcel = () => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+  const {
+    data,
+    isPending,
+    isError,
+    mutate,
+    reset: mutationReset,
+  } = useMutation({
+    mutationFn: (newParcel) => axiosSecure.post("/parcels", newParcel),
+    onSuccess: (result) => {
+      console.log("after added parcel", result);
+      mutationReset();
+      reset();
+      queryClient.invalidateQueries({ queryKey: ["parcels"] });
+    },
+    onMutate: (newParcel) => {
+      console.log("Before the mutation fn run", newParcel);
+    },
+    onError: (error) => {
+      console.error(error.message);
+    },
+    retry: 3,
+  });
+  console.log(data);
 
   const regionsDuplicate = serviceCenters.map((c) => c.region);
   const regions = [...new Set(regionsDuplicate)];
@@ -25,7 +55,7 @@ const SendParcel = () => {
   };
 
   const handleAddParcel = (data) => {
-    console.log(data);
+    const newParcle = { createdAt: new Date().toISOString(), ...data };
     const isDocument = parcelType === "document";
     const isSameDistrict = data.senderDistrict === data.receiverDistrict;
     const parcelWeight = parseFloat(data.parcelWeight) || 0;
@@ -45,7 +75,6 @@ const SendParcel = () => {
         cost = minCharge + extraCharge;
       }
     }
-    console.log(cost);
 
     Swal.fire({
       title: "Confirm Booking",
@@ -67,8 +96,28 @@ const SendParcel = () => {
         popup: "rounded-2xl shadow-xl p-4",
         title: "text-secondary font-bold text-2xl",
       },
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
+        mutate(newParcle);
+        // axiosSecure
+        //   .post("/parcels", newParcle)
+        //   .then(({ data }) => console.log("after post data", data));
+        if (isPending) {
+          return (
+            <div className="flex items-center justify-center h-screen">
+              <span className="loading-spinner"></span>
+            </div>
+          );
+        }
+        if (isError) {
+          return (
+            <div className="flex items-center justify-center h-screen">
+              <span className="loading-spinner"></span>
+              <span className="text-red-500">Something is wrong!</span>
+            </div>
+          );
+        }
+
         Swal.fire({
           title: "Confirmed!",
           text: "Your booking is successfully placed.",
@@ -197,6 +246,7 @@ const SendParcel = () => {
                   <span className="label-text">Sender Name</span>
                 </label>
                 <input
+                  defaultValue={user?.displayName}
                   type="text"
                   placeholder="Sender Name"
                   className="input input-bordered w-full"
@@ -207,6 +257,27 @@ const SendParcel = () => {
                 {errors.senderName && (
                   <p className="label-text-alt text-error mt-1">
                     {errors.senderName.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Sender Email */}
+              <div>
+                <label className="label">
+                  <span className="label-text">Sender Email</span>
+                </label>
+                <input
+                  defaultValue={user?.email}
+                  type="text"
+                  placeholder="Email"
+                  className="input input-bordered w-full"
+                  {...register("senderemail", {
+                    required: "sender email is required",
+                  })}
+                />
+                {errors.senderemail && (
+                  <p className="label-text-alt text-error mt-1">
+                    {errors.senderemail.message}
                   </p>
                 )}
               </div>
@@ -371,6 +442,26 @@ const SendParcel = () => {
                 )}
               </div>
 
+              {/* Receiver Email */}
+              <div>
+                <label className="label">
+                  <span className="label-text">Receiver Email</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Email"
+                  className="input input-bordered w-full"
+                  {...register("receiveremail", {
+                    required: "Receiver email is required",
+                  })}
+                />
+                {errors.receiveremail && (
+                  <p className="label-text-alt text-error mt-1">
+                    {errors.receiveremail.message}
+                  </p>
+                )}
+              </div>
+
               {/* Receiver Region and District */}
               <div className="grid grid-cols-2 gap-4 md:gap-6">
                 {/* Receiver Region */}
@@ -454,7 +545,7 @@ const SendParcel = () => {
               {/* Phone */}
               <div>
                 <label className="label">
-                  <span className="label-text">Receiver Contact No</span>
+                  <span className="label-text">Receiver Email No</span>
                 </label>
                 <input
                   type="text"
