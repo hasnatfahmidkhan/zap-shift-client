@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import { districsByRegions, regionsFunc } from "../../utils";
 
 const SendParcel = () => {
   const serviceCenters = useLoaderData();
@@ -40,18 +41,11 @@ const SendParcel = () => {
     retry: 3,
   });
 
-  const regionsDuplicate = serviceCenters.map((c) => c.region);
-  const regions = [...new Set(regionsDuplicate)];
+  const regions = regionsFunc(serviceCenters);
   const senderRegion = useWatch({ control, name: "senderRegion" });
   //!  explore useMemo and callBack
   const receiverRegion = useWatch({ control, name: "receiverRegion" });
   const parcelType = useWatch({ control, name: "parcelType" });
-
-  const districsByRegions = (region) => {
-    const regionDistrics = serviceCenters.filter((r) => r.region === region);
-    const districs = regionDistrics.map((d) => d.district);
-    return districs;
-  };
 
   const handleAddParcel = (data) => {
     const isDocument = data.parcelType === "document";
@@ -332,11 +326,13 @@ const SendParcel = () => {
                     <option value={""} disabled>
                       Select Your District
                     </option>
-                    {districsByRegions(senderRegion).map((r, i) => (
-                      <option key={i} value={r}>
-                        {r}
-                      </option>
-                    ))}
+                    {districsByRegions(senderRegion, serviceCenters).map(
+                      (r, i) => (
+                        <option key={i} value={r}>
+                          {r}
+                        </option>
+                      )
+                    )}
                   </select>
                   {errors.senderDistrict && (
                     <p className="label-text-alt text-error mt-1">
@@ -513,11 +509,13 @@ const SendParcel = () => {
                       Select receiver district
                     </option>
 
-                    {districsByRegions(receiverRegion).map((r, i) => (
-                      <option key={i} value={r}>
-                        {r}
-                      </option>
-                    ))}
+                    {districsByRegions(receiverRegion, serviceCenters).map(
+                      (r, i) => (
+                        <option key={i} value={r}>
+                          {r}
+                        </option>
+                      )
+                    )}
                   </select>
                   {errors.receiverDistrict && (
                     <p className="label-text-alt text-error mt-1">

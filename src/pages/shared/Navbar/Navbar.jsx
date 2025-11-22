@@ -172,7 +172,9 @@ const Navbar = () => {
               </SecondaryBtn>
             )}
             <div className="flex items-center justify-center">
-              <PrimaryBtn>Be a Rider</PrimaryBtn>
+              <Link to={"/be-a-rider"}>
+                <PrimaryBtn>Be a Rider</PrimaryBtn>
+              </Link>
               <PrimaryArrow />
             </div>
           </div>

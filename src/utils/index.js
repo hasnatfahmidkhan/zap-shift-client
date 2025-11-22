@@ -9,3 +9,14 @@ export const uploadImage = async (imgFile) => {
   const res = await axios.post(import.meta.env.VITE_IMG_HOSTING, formData);
   return res.data?.data.url;
 };
+
+export const regionsFunc = (serviceCenters) => {
+  const regionsDuplicate = serviceCenters.map((c) => c.region);
+  return [...new Set(regionsDuplicate)];
+};
+
+export const districsByRegions = (region, serviceCenters) => {
+  const regionDistrics = serviceCenters?.filter((r) => r.region === region);
+  const districs = regionDistrics.map((d) => d.district);
+  return districs;
+};
