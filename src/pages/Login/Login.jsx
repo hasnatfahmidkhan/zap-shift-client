@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import SocialBtn from "../shared/SocialBtn/SocialBtn";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Login = () => {
+  const axiosSecure = useAxiosSecure();
   const {
     GoogleLoginFunc,
     setUser,
@@ -37,8 +39,23 @@ const Login = () => {
     try {
       const result = await GoogleLoginFunc();
       const currentUser = result.user;
-      setUser(currentUser);
-      navigate(state || "/");
+      //* store user in DB
+      const userInfo = {
+        email: currentUser.email,
+        photoURL: currentUser.photoURL,
+        displayName: currentUser.displayName,
+      };
+
+      axiosSecure.post("/users", userInfo).then(({ data }) => {
+        if (data.message === "User already exits") {
+          navigate(state || "/");
+        }
+
+        if (data.insertedId) {
+          setUser(currentUser);
+          navigate(state || "/");
+        }
+      });
     } catch (error) {
       toast.error(error.message);
     } finally {

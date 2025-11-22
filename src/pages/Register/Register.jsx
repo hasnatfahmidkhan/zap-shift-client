@@ -5,8 +5,10 @@ import { Controller, useForm } from "react-hook-form";
 import SocialBtn from "../shared/SocialBtn/SocialBtn";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
-import axios from "axios";
+import { uploadImage } from "../../utils";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Register = () => {
+  const axiosSecure = useAxiosSecure();
   const {
     GoogleLoginFunc,
     setUser,
@@ -34,21 +36,34 @@ const Register = () => {
       const { email, password, photo, name } = data;
       //* get img file
       const imgFile = photo[0];
-      //* create new formData instance
-      const formData = new FormData();
-      //* append img file into formData
-      formData.append("image", imgFile);
-      //* hosting the img
-      const res = await axios.post(import.meta.env.VITE_IMG_HOSTING, formData);
+
       //* get the img url
-      const profileImg = res.data?.data.url;
+      const profileImg = await uploadImage(imgFile);
       //* register user
       const result = await registerEmailPassFunc(email, password);
+
       //* update user profile
       await updateProfileFunc(name, profileImg);
+
       const currentUser = result.user;
-      setUser(currentUser);
-      navigate(state || "/");
+
+      //* store user in DB
+      const userInfo = {
+        email: currentUser.email,
+        photoURL: profileImg,
+        displayName: currentUser.displayName,
+      };
+
+      axiosSecure.post("/users", userInfo).then(({ data }) => {
+        if (data.message === "User already exits") {
+          navigate(state || "/");
+        }
+
+        if (data.insertedId) {
+          setUser(currentUser);
+          navigate(state || "/");
+        }
+      });
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -60,8 +75,23 @@ const Register = () => {
     try {
       const result = await GoogleLoginFunc();
       const currentUser = result.user;
-      setUser(currentUser);
-      navigate(state || "/");
+      //* store user in DB
+      const userInfo = {
+        email: currentUser.email,
+        photoURL: currentUser.photoURL,
+        displayName: currentUser.displayName,
+      };
+
+      axiosSecure.post("/users", userInfo).then(({ data }) => {
+        if (data.message === "User already exits") {
+          navigate(state || "/");
+        }
+
+        if (data.insertedId) {
+          setUser(currentUser);
+          navigate(state || "/");
+        }
+      });
     } catch (error) {
       toast.error(error.message);
     } finally {

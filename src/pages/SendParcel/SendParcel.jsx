@@ -17,8 +17,8 @@ const SendParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
+
   const {
-    data,
     isPending,
     isError,
     mutate,
@@ -39,7 +39,6 @@ const SendParcel = () => {
     },
     retry: 3,
   });
-  console.log(data);
 
   const regionsDuplicate = serviceCenters.map((c) => c.region);
   const regions = [...new Set(regionsDuplicate)];
@@ -55,8 +54,7 @@ const SendParcel = () => {
   };
 
   const handleAddParcel = (data) => {
-    const newParcle = { createdAt: new Date().toISOString(), ...data };
-    const isDocument = parcelType === "document";
+    const isDocument = data.parcelType === "document";
     const isSameDistrict = data.senderDistrict === data.receiverDistrict;
     const parcelWeight = parseFloat(data.parcelWeight) || 0;
 
@@ -75,6 +73,13 @@ const SendParcel = () => {
         cost = minCharge + extraCharge;
       }
     }
+    const newParcle = {
+      amount: Number(cost),
+      paymentStatus: "upaid",
+      deliveryStatus: "pending",
+      createdAt: new Date().toISOString(),
+      ...data,
+    };
 
     Swal.fire({
       title: "Confirm Booking",
@@ -271,13 +276,13 @@ const SendParcel = () => {
                   type="text"
                   placeholder="Email"
                   className="input input-bordered w-full"
-                  {...register("senderemail", {
+                  {...register("senderEmail", {
                     required: "sender email is required",
                   })}
                 />
-                {errors.senderemail && (
+                {errors.senderEmail && (
                   <p className="label-text-alt text-error mt-1">
-                    {errors.senderemail.message}
+                    {errors.senderEmail.message}
                   </p>
                 )}
               </div>
@@ -545,7 +550,7 @@ const SendParcel = () => {
               {/* Phone */}
               <div>
                 <label className="label">
-                  <span className="label-text">Receiver Email No</span>
+                  <span className="label-text">Receiver Contact No</span>
                 </label>
                 <input
                   type="text"

@@ -12,6 +12,7 @@ import ProfileLogo from "../../../components/ProfileLogo/ProfileLogo";
 import {
   Bike,
   Info,
+  LayoutDashboard,
   LogOut,
   Map,
   Settings,
@@ -102,6 +103,10 @@ const Navbar = () => {
         <Link className={"mb-2.5 bg-base-100 text-[#000000]"} to={"/profile"}>
           <UserCog />
           Profile
+        </Link>
+        <Link className={"mb-2.5 bg-base-100 text-[#000000]"} to={"/dashboard"}>
+          <LayoutDashboard />
+          Dashboard
         </Link>
       </li>
       <li>

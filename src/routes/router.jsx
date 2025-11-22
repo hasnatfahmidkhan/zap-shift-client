@@ -9,6 +9,10 @@ import ForgetPassword from "../pages/ForgetPassword/ForgetPassword";
 import Profile from "../pages/Profile/Profile";
 import SendParcel from "../pages/SendParcel/SendParcel";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Dashboard from "../layouts/DashboardLayout/DashboardLayout";
+import Myparcels from "../pages/Dashboard/MyParcels/Myparcels";
+import PaymentSuccess from "../pages/Dashboard/PaymentSuccess/PaymentSuccess";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +58,28 @@ export const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard/my-parcels",
+        Component: Myparcels,
+      },
+      {
+        path: "/dashboard/payment-history",
+        Component: PaymentHistory,
+      },
+      {
+        path: "/dashboard/payment-success",
+        Component: PaymentSuccess,
       },
     ],
   },
