@@ -1,5 +1,7 @@
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import DashboardContainer from "../shared/DashboardContainer";
+import TableLoader from "../shared/TableLoader";
 import PaymentTable from "./PaymentTable/PaymentTable";
 import { useQuery } from "@tanstack/react-query";
 
@@ -8,7 +10,7 @@ const PaymentHistory = () => {
   const { user } = useAuth();
   const {
     data: payments,
-    isLoading,
+    isPending,
     isError,
   } = useQuery({
     queryKey: ["payments"],
@@ -18,7 +20,7 @@ const PaymentHistory = () => {
       );
       return data;
     },
-    // retry: 3,
+    retry: 3,
   });
 
   if (isError) {
@@ -26,16 +28,10 @@ const PaymentHistory = () => {
   }
 
   return (
-    <section className="bg-base-100 rounded-2xl p-6 min-h-[calc(100vh-116px)]">
+    <DashboardContainer>
       <h3 className="heading">Payment History</h3>
-      {isLoading ? (
-        <div className="flex items-center justify-center h-[40vh]">
-          <span className="loading loading-bars loading-xl"></span>
-        </div>
-      ) : (
-        <PaymentTable payments={payments} />
-      )}
-    </section>
+      {isPending ? <TableLoader /> : <PaymentTable payments={payments} />}
+    </DashboardContainer>
   );
 };
 

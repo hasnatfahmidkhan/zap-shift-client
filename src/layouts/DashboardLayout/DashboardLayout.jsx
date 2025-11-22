@@ -1,6 +1,7 @@
 import {
   House,
   LogOut,
+  Motorbike,
   Package,
   PanelRightClose,
   ReceiptText,
@@ -92,6 +93,18 @@ const DashboardLayout = () => {
                   <span className="is-drawer-close:hidden">
                     Payment History
                   </span>
+                </MyLink>
+              </li>
+
+              {/* Approave Rider */}
+              <li>
+                <MyLink
+                  to={"/dashboard/approve-rider"}
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                >
+                  {/* Motorbike icon */}
+                  <Motorbike size={20} />
+                  <span className="is-drawer-close:hidden">Approve Rider</span>
                 </MyLink>
               </li>
 

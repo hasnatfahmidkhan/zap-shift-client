@@ -3,6 +3,7 @@ import ParcelsTable from "./ParclesTable/ParcelsTable";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import DashboardContainer from "../shared/DashboardContainer";
 
 const Myparcels = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,7 +23,7 @@ const Myparcels = () => {
   });
 
   return (
-    <section className="bg-base-100 rounded-2xl p-6 min-h-[calc(100vh-116px)]">
+    <DashboardContainer>
       <h2 className="heading">My Parcel</h2>
 
       <div className="mt-7 flex items-center gap-5">
@@ -61,7 +62,7 @@ const Myparcels = () => {
       ) : (
         <ParcelsTable parcels={parcels} refetch={refetch} />
       )}
-    </section>
+    </DashboardContainer>
   );
 };
 
