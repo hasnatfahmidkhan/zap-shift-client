@@ -6,9 +6,7 @@ import MyLink from "../../../components/MyLink/MyLink";
 import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
-import { TbLogout } from "react-icons/tb";
-import { FaRegUser } from "react-icons/fa";
-import ProfileLogo from "../../../components/ProfileLogo/ProfileLogo";
+
 import {
   Bike,
   Info,
@@ -20,6 +18,7 @@ import {
   UserCog,
   UserPen,
 } from "lucide-react";
+import ProfileNav from "../../../components/ProfileNav/ProfileNav";
 const Navbar = () => {
   const { user, signOutFunc } = useAuth();
   const navigate = useNavigate();
@@ -126,7 +125,7 @@ const Navbar = () => {
       <div className="p-0 max-w-7xl mx-auto navbar">
         <div className="navbar-start gap-2">
           {user && (
-            <ProfileLogo
+            <ProfileNav
               user={user}
               userLinks={userLinks}
               className={"dropdown-start mr-2"}

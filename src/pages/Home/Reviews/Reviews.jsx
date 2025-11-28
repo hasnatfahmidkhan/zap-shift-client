@@ -21,7 +21,7 @@ const Reviews = ({ reviewsPromise }) => {
   const swiperRef = useRef(null);
 
   return (
-    <section>
+    <section className="bg-black">
       <div className="flex flex-col justify-center items-center text-center gap-8 mb-10">
         <img className="h-full" src={customerTop} alt="" />
         <div className="space-y-4">

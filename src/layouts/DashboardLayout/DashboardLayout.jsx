@@ -1,4 +1,5 @@
 import {
+  ChevronDown,
   House,
   LogOut,
   Motorbike,
@@ -11,6 +12,7 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import Logo from "../../components/Logo/Logo";
 import MyLink from "../../components/MyLink/MyLink";
+import DashBoardProfile from "../../components/DashBoardProfile/DashBoardProfile";
 
 const DashboardLayout = () => {
   const { signOutFunc } = useAuth();
@@ -22,24 +24,36 @@ const DashboardLayout = () => {
       toast.error(error.message);
     }
   };
+
+  const menuLinks = [
+    { id: 1, label: "Profile" },
+    { id: 2, label: "Settings" },
+    { id: 3, label: "Help" },
+    { id: 4, label: "Logout" },
+  ];
   return (
     <div>
       <div className="drawer lg:drawer-open">
         <input id="sidebar" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar w-full bg-base-100 py-3.5">
-            <label
-              htmlFor="sidebar"
-              aria-label="open sidebar"
-              className="btn btn-square btn-ghost mx-2"
-            >
-              {/* Sidebar toggle icon */}
-              <PanelRightClose size={21} />
-            </label>
-            <div className="">
-              <Logo />
+          <nav className="navbar justify-between items-center w-full bg-base-100 py-3.5 px-6">
+            {/* logo and open icon  */}
+            <div className="flex items-center">
+              <label
+                htmlFor="sidebar"
+                aria-label="open sidebar"
+                className="btn btn-square btn-ghost "
+              >
+                {/* Sidebar toggle icon */}
+                <PanelRightClose size={21} />
+              </label>
+              <div className="">
+                <Logo />
+              </div>
             </div>
+            {/* user profile */}
+            <DashBoardProfile menuLinks={menuLinks} />
           </nav>
           {/* Page content here */}
           <div className="p-5">
