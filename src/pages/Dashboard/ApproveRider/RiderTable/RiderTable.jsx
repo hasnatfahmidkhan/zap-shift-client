@@ -1,11 +1,14 @@
-import { Trash2, UserCheck, UserX } from "lucide-react";
+import { Eye, Trash2, UserCheck, UserX } from "lucide-react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import RiderDetailsModal from "./RiderDetailsModal";
+import { useRef, useState } from "react";
 
 const RiderTable = ({ riders, refetch }) => {
   const axiosSecure = useAxiosSecure();
-
+  const modalRef = useRef();
+  const [riderDetails, setRiderDetails] = useState(null);
   const updateStatus = async (rider, status) => {
     const updateInfo = { status, email: rider.email };
     const { data } = await axiosSecure.patch(
@@ -48,6 +51,11 @@ const RiderTable = ({ riders, refetch }) => {
         }
       }
     });
+  };
+
+  const handleRiderModal = (rider) => {
+    modalRef.current?.showModal();
+    setRiderDetails(rider);
   };
 
   return (
@@ -96,7 +104,14 @@ const RiderTable = ({ riders, refetch }) => {
                   {rider.status}
                 </span>
               </td>
-              <td className="space-x-2">
+              <td className="flex items-center gap-1 ">
+                <button
+                  onClick={() => handleRiderModal(rider)}
+                  className="action-btn"
+                  data-tip="view details"
+                >
+                  <Eye />
+                </button>
                 <button
                   onClick={() => handleApprove(rider)}
                   className="action-btn"
@@ -123,6 +138,7 @@ const RiderTable = ({ riders, refetch }) => {
           ))}
         </tbody>
       </table>
+      <RiderDetailsModal modalRef={modalRef} riderDetails={riderDetails} />
     </div>
   );
 };

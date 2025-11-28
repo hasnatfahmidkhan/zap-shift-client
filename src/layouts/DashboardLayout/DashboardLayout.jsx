@@ -1,11 +1,11 @@
 import {
-  ChevronDown,
   House,
   LogOut,
   Motorbike,
   Package,
   PanelRightClose,
   ReceiptText,
+  Users,
 } from "lucide-react";
 import { Link, Outlet } from "react-router";
 import useAuth from "../../hooks/useAuth";
@@ -13,8 +13,12 @@ import toast from "react-hot-toast";
 import Logo from "../../components/Logo/Logo";
 import MyLink from "../../components/MyLink/MyLink";
 import DashBoardProfile from "../../components/DashBoardProfile/DashBoardProfile";
+import DashIcon from "../../components/DashIcon/DashIcon";
+import useRole from "../../hooks/useRole";
+import Spinner from "../../components/Spinner/Spinner";
 
 const DashboardLayout = () => {
+  const { role, userRoleLoading } = useRole();
   const { signOutFunc } = useAuth();
   const handleSignOut = async () => {
     try {
@@ -25,12 +29,61 @@ const DashboardLayout = () => {
     }
   };
 
-  const menuLinks = [
-    { id: 1, label: "Profile" },
-    { id: 2, label: "Settings" },
-    { id: 3, label: "Help" },
-    { id: 4, label: "Logout" },
+  if (userRoleLoading) {
+    return <Spinner />;
+  }
+
+  const sidebarLinks = [
+    {
+      id: 1,
+      type: "link",
+      label: "Homepage",
+      to: "/",
+      icon: <DashIcon Icon={House} />,
+      roles: ["admin", "user"], // visible to all
+    },
+    {
+      id: 2,
+      type: "link",
+      label: "My Parcels",
+      to: "/dashboard/my-parcels",
+      icon: <DashIcon Icon={Package} />,
+      roles: ["admin", "user"],
+    },
+    {
+      id: 3,
+      type: "link",
+      label: "Payment History",
+      to: "/dashboard/payment-history",
+      icon: <DashIcon Icon={ReceiptText} />,
+      roles: ["admin", "user"],
+    },
+    {
+      id: 4,
+      type: "link",
+      label: "Approve Rider",
+      to: "/dashboard/approve-rider",
+      icon: <DashIcon Icon={Motorbike} />,
+      roles: ["admin"], // admin only
+    },
+    {
+      id: 5,
+      type: "link",
+      label: "Manage Users",
+      to: "/dashboard/manage-users",
+      icon: <DashIcon Icon={Users} />,
+      roles: ["admin"], // admin only
+    },
+    {
+      id: 6,
+      type: "button",
+      label: "Sign Out",
+      action: "logout",
+      icon: <DashIcon Icon={LogOut} />,
+      roles: ["admin", "user"],
+    },
   ];
+
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -53,7 +106,7 @@ const DashboardLayout = () => {
               </div>
             </div>
             {/* user profile */}
-            <DashBoardProfile menuLinks={menuLinks} />
+            <DashBoardProfile />
           </nav>
           {/* Page content here */}
           <div className="p-5">
@@ -70,70 +123,35 @@ const DashboardLayout = () => {
           <div className="flex min-h-full flex-col items-start bg-base-100 shadow-sm is-drawer-close:w-20 is-drawer-open:w-52">
             {/* Sidebar content here */}
             <ul className="menu items-center is-drawer-open:items-start w-full grow space-y-3">
-              {/* Home */}
-              <li>
-                <MyLink
-                  end
-                  to={"/"}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                >
-                  {/* Home icon */}
-                  <House size={20} />
-
-                  <span className="is-drawer-close:hidden">Homepage</span>
-                </MyLink>
-              </li>
-
-              {/* My Parcels */}
-              <li>
-                <MyLink
-                  to={"/dashboard/my-parcels"}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                >
-                  {/* Package icon */}
-                  <Package size={20} />
-                  <span className="is-drawer-close:hidden">My Parcels</span>
-                </MyLink>
-              </li>
-
-              {/* Payment History */}
-              <li>
-                <MyLink
-                  to={"/dashboard/payment-history"}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                >
-                  {/* Receipt icon */}
-                  <ReceiptText size={20} />
-                  <span className="is-drawer-close:hidden">
-                    Payment History
-                  </span>
-                </MyLink>
-              </li>
-
-              {/* Approave Rider */}
-              <li>
-                <MyLink
-                  to={"/dashboard/approve-rider"}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                >
-                  {/* Motorbike icon */}
-                  <Motorbike size={20} />
-                  <span className="is-drawer-close:hidden">Approve Rider</span>
-                </MyLink>
-              </li>
-
-              {/* Sign out */}
-              <li>
-                <button
-                  onClick={handleSignOut}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right tooltip-error text-base font-medium text-red-500"
-                  data-tip="Sign out"
-                >
-                  {/* Settings icon */}
-                  <LogOut size={20} />
-                  <span className="is-drawer-close:hidden">Sign Out</span>
-                </button>
-              </li>
+              {sidebarLinks
+                .filter((item) => item.roles.includes(role)) // role-based filtering
+                .map((item) => (
+                  <li key={item.id}>
+                    {item.type === "link" ? (
+                      <MyLink
+                        to={item.to}
+                        end={item.to === "/"}
+                        className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      >
+                        {item.icon}
+                        <span className="is-drawer-close:hidden">
+                          {item.label}
+                        </span>
+                      </MyLink>
+                    ) : (
+                      <button
+                        onClick={handleSignOut}
+                        className="is-drawer-close:tooltip is-drawer-close:tooltip-right tooltip-error text-base font-medium text-red-500"
+                        data-tip="Sign out"
+                      >
+                        {item.icon}
+                        <span className="is-drawer-close:hidden">
+                          {item.label}
+                        </span>
+                      </button>
+                    )}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

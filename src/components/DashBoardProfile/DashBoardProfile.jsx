@@ -2,10 +2,16 @@ import { ChevronDown } from "lucide-react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import useAuth from "../../hooks/useAuth";
 
-const DashBoardProfile = ({ className = "", menuLinks }) => {
+const DashBoardProfile = ({ className = "" }) => {
   const { user } = useAuth();
 
   if (!user) return null;
+  const menuLinks = [
+    { id: 1, label: "Profile" },
+    { id: 2, label: "Settings" },
+    { id: 3, label: "Help" },
+    { id: 4, label: "Logout" },
+  ];
 
   return (
     <div className={`dropdown dropdown-end ${className}`}>

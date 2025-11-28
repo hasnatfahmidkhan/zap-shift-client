@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import DashboardContainer from "../shared/DashboardContainer";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const Myparcels = () => {
   const axiosSecure = useAxiosSecure();
@@ -56,9 +57,7 @@ const Myparcels = () => {
         </div>
       </div>
       {isLoading ? (
-        <div className="flex items-center justify-center h-[40vh]">
-          <span className="loading loading-bars loading-xl"></span>
-        </div>
+        <Spinner />
       ) : (
         <ParcelsTable parcels={parcels} refetch={refetch} />
       )}
