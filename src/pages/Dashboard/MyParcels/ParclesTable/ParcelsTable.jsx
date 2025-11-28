@@ -60,6 +60,7 @@ const ParcelsTable = ({ parcels, refetch }) => {
             <th>Delivery Status</th>
             <th>Amount</th>
             <th>Payment</th>
+            <th>Tracking Id</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -71,7 +72,18 @@ const ParcelsTable = ({ parcels, refetch }) => {
               <td>{parcel.parcelName}</td>
               <td>{parcel.deliveryStatus}</td>
               <td>{parcel.amount}</td>
-              <td>{parcel.paymentStatus === "paid" ? "Paid" : "Unpaid"}</td>
+              <td>
+                <span
+                  className={`badge ${
+                    parcel.paymentStatus === "paid"
+                      ? "badge-success"
+                      : "badge-warning"
+                  }`}
+                >
+                  {parcel.paymentStatus === "paid" ? "Paid" : "Unpaid"}
+                </span>
+              </td>
+              <td>{parcel.trackingId}</td>
               <td className="space-x-2">
                 <button
                   onClick={() => handlePay(parcel)}

@@ -1,5 +1,5 @@
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,6 +8,7 @@ import { districsByRegions, regionsFunc } from "../../utils";
 
 const SendParcel = () => {
   const serviceCenters = useLoaderData();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -27,10 +28,11 @@ const SendParcel = () => {
   } = useMutation({
     mutationFn: (newParcel) => axiosSecure.post("/parcels", newParcel),
     onSuccess: (result) => {
-      console.log("after added parcel", result);
+      // console.log("after added parcel", result);
       mutationReset();
       reset();
       queryClient.invalidateQueries({ queryKey: ["parcels"] });
+      navigate("/dashboard/my-parcels");
     },
     onMutate: (newParcel) => {
       console.log("Before the mutation fn run", newParcel);
@@ -54,7 +56,7 @@ const SendParcel = () => {
 
     let cost = 0;
     if (isDocument) {
-      cost = isSameDistrict ? 60 : 80;
+      cost = isSameDistrict ? 70 : 80;
     } else {
       if (parcelWeight <= 3) {
         cost = isSameDistrict ? 110 : 150;

@@ -1,6 +1,7 @@
 import {
   House,
   LogOut,
+  MapPin,
   Motorbike,
   Package,
   PanelRightClose,
@@ -76,6 +77,14 @@ const DashboardLayout = () => {
     },
     {
       id: 6,
+      type: "link",
+      label: "Assign Riders",
+      to: "/dashboard/assign-riders",
+      icon: <DashIcon Icon={MapPin} />,
+      roles: ["admin"], // admin only
+    },
+    {
+      id: 7,
       type: "button",
       label: "Sign Out",
       action: "logout",
