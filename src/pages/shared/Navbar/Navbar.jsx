@@ -78,6 +78,12 @@ const Navbar = () => {
       </li>
 
       <li>
+        <NavLink className={"phone-link"} to={"/send-parcel"}>
+          <Bike />
+          Send Parcel
+        </NavLink>
+      </li>
+      <li>
         <NavLink className={"phone-link"} to={"/be-a-rider"}>
           <Bike />
           Be a Rider

@@ -108,14 +108,14 @@ const RiderTable = ({ riders, refetch }) => {
               <td>
                 <span
                   className={`badge ${
-                    rider.workStatus === "unavailabel"
+                    rider.workStatus === "unavailable"
                       ? "badge-error"
                       : rider.workStatus === "available"
                       ? "badge-success text-green-100"
                       : "badge-warning"
                   }`}
                 >
-                  {rider.workStatus}
+                  {rider.workStatus || "pending"}
                 </span>
               </td>
               <td className="flex items-center gap-1 ">

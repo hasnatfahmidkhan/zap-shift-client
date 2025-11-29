@@ -52,11 +52,11 @@ const AssignRiders = () => {
       parcelId: selectedParcel._id,
     };
     const { data } = await axiosSecure.patch(
-      `/parcels/${selectedParcel._id}`,
+      `/parcels/${selectedParcel._id}/assign`,
       riderAssignInfo
     );
     console.log(data);
-    if (data.modifiedCount) {
+    if (data) {
       toast.success("Rider Assign Successfully");
       riderModalRef.current?.close();
     }
