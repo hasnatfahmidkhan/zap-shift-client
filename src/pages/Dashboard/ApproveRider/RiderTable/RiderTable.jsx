@@ -70,7 +70,8 @@ const RiderTable = ({ riders, refetch }) => {
             <th>Driving License</th>
             <th>Rider Location</th>
             <th>Bike</th>
-            <th>Status</th>
+            <th>Application Status</th>
+            <th>Work Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -97,11 +98,24 @@ const RiderTable = ({ riders, refetch }) => {
                     rider.status === "rejected"
                       ? "badge-error"
                       : rider.status === "approved"
-                      ? "badge-success"
+                      ? "badge-success text-green-100"
                       : "badge-warning"
                   }`}
                 >
                   {rider.status}
+                </span>
+              </td>
+              <td>
+                <span
+                  className={`badge ${
+                    rider.workStatus === "unavailabel"
+                      ? "badge-error"
+                      : rider.workStatus === "available"
+                      ? "badge-success text-green-100"
+                      : "badge-warning"
+                  }`}
+                >
+                  {rider.workStatus}
                 </span>
               </td>
               <td className="flex items-center gap-1 ">
