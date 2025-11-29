@@ -33,15 +33,15 @@ const DashboardLayout = () => {
   if (userRoleLoading) {
     return <Spinner />;
   }
-
   const sidebarLinks = [
+    // General routes (visible to all)
     {
       id: 1,
       type: "link",
       label: "Homepage",
       to: "/",
       icon: <DashIcon Icon={House} />,
-      roles: ["admin", "user"], // visible to all
+      roles: ["admin", "user", "rider"],
     },
     {
       id: 2,
@@ -57,39 +57,53 @@ const DashboardLayout = () => {
       label: "Payment History",
       to: "/dashboard/payment-history",
       icon: <DashIcon Icon={ReceiptText} />,
-      roles: ["admin", "user"],
+      roles: ["admin", "user"], // riders may not need this
     },
+
+    // Rider-specific routes
     {
       id: 4,
+      type: "link",
+      label: "Assigned Deliveries",
+      to: "/dashboard/assign-deliveries",
+      icon: <DashIcon Icon={MapPin} />,
+      roles: ["rider"],
+    },
+
+    // Admin-only routes
+    {
+      id: 5,
       type: "link",
       label: "Approve Rider",
       to: "/dashboard/approve-rider",
       icon: <DashIcon Icon={Motorbike} />,
-      roles: ["admin"], // admin only
-    },
-    {
-      id: 5,
-      type: "link",
-      label: "Manage Users",
-      to: "/dashboard/manage-users",
-      icon: <DashIcon Icon={Users} />,
-      roles: ["admin"], // admin only
+      roles: ["admin"],
     },
     {
       id: 6,
       type: "link",
-      label: "Assign Riders",
-      to: "/dashboard/assign-riders",
-      icon: <DashIcon Icon={MapPin} />,
-      roles: ["admin"], // admin only
+      label: "Manage Users",
+      to: "/dashboard/manage-users",
+      icon: <DashIcon Icon={Users} />,
+      roles: ["admin"],
     },
     {
       id: 7,
+      type: "link",
+      label: "Assign Riders",
+      to: "/dashboard/assign-riders",
+      icon: <DashIcon Icon={MapPin} />,
+      roles: ["admin"],
+    },
+
+    // Common button for logout
+    {
+      id: 8,
       type: "button",
       label: "Sign Out",
       action: "logout",
       icon: <DashIcon Icon={LogOut} />,
-      roles: ["admin", "user"],
+      roles: ["admin", "user", "rider"],
     },
   ];
 

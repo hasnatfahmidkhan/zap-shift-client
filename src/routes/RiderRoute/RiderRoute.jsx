@@ -1,19 +1,20 @@
-import Forbidden from "../../components/Forbidden/Forbidden";
-import Spinner from "../../components/Spinner/Spinner";
-import useAuth from "../../hooks/useAuth";
+import React from "react";
 import useRole from "../../hooks/useRole";
+import Spinner from "../../components/Spinner/Spinner";
+import Forbidden from "../../components/Forbidden/Forbidden";
+import useAuth from "../../hooks/useAuth";
 
-const AdminRoute = ({ children }) => {
+const RiderRoute = ({ children }) => {
   const { authLoading } = useAuth();
   const { role, userRoleLoading } = useRole();
   if (userRoleLoading || authLoading) {
     return <Spinner />;
   }
 
-  if (role !== "admin") {
+  if (role !== "rider") {
     return <Forbidden />;
   }
   return children;
 };
 
-export default AdminRoute;
+export default RiderRoute;
