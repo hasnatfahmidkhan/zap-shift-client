@@ -2,19 +2,21 @@ import toast from "react-hot-toast";
 import Spinner from "../../../components/Spinner/Spinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 const AssignedDeliveriesTable = ({ isLoading, parcels, refetch }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient();
 
   // Accept/Reject functions remain unchanged
-  const handleAcceptDelivery = async (parcelId) => {
+  const handleAcceptDelivery = async (parcel) => {
     try {
-      const updateStatusInfo = { deliveryStatus: "confirm" };
+      const updateStatusInfo = {
+        deliveryStatus: "confirm",
+        trackingId: parcel.trackingId,
+      };
       const { data } = await axiosSecure.patch(
-        `/parcels/${parcelId}/deliveryStatus`,
+        `/parcels/${parcel._id}/deliveryStatus`,
         updateStatusInfo
       );
       if (data.modifiedCount) {
@@ -26,15 +28,15 @@ const AssignedDeliveriesTable = ({ isLoading, parcels, refetch }) => {
     }
   };
 
-  const handleRejectDelivery = async (parcelId) => {
+  const handleRejectDelivery = async (parcel) => {
     try {
       const updateStatusInfo = {
-        deliveryStatus: "pending-pickup",
-        workStatus: "available",
+        deliveryStatus: "parcel-paid",
         email: user?.email,
+        trackingId: parcel.trackingId,
       };
       const { data } = await axiosSecure.patch(
-        `/parcels/${parcelId}/deliveryStatus`,
+        `/parcels/${parcel._id}/deliveryStatus`,
         updateStatusInfo
       );
       if (data.modifiedCount) {
@@ -48,16 +50,19 @@ const AssignedDeliveriesTable = ({ isLoading, parcels, refetch }) => {
 
   // Mutation to update delivery status from select dropdown
   const statusMutation = useMutation({
-    mutationFn: async ({ parcelId, newStatus }) => {
-      const workStatus =
-        newStatus === "delivered" ? "available" : "in-delivery";
+    mutationFn: async ({ parcelId, newStatus, trackingId }) => {
+      const statusUpdateInfo = {
+        deliveryStatus: newStatus,
+        email: user?.email,
+        trackingId,
+      };
       const { data } = await axiosSecure.patch(
         `/parcels/${parcelId}/deliveryStatus`,
-        { deliveryStatus: newStatus, workStatus, email: user?.email }
+        statusUpdateInfo
       );
       return data;
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (data) => {
       if (data.modifiedCount) {
         toast.success("Delivery status updated");
         refetch(); // refresh table data
@@ -114,13 +119,13 @@ const AssignedDeliveriesTable = ({ isLoading, parcels, refetch }) => {
                     {parcel.deliveryStatus === "rider-assigned" ? (
                       <>
                         <button
-                          onClick={() => handleAcceptDelivery(parcel._id)}
+                          onClick={() => handleAcceptDelivery(parcel)}
                           className="btn btn-xs btn-primary text-secondary"
                         >
                           Accept
                         </button>
                         <button
-                          onClick={() => handleRejectDelivery(parcel._id)}
+                          onClick={() => handleRejectDelivery(parcel)}
                           className="btn btn-xs btn-error"
                         >
                           Reject
@@ -144,6 +149,7 @@ const AssignedDeliveriesTable = ({ isLoading, parcels, refetch }) => {
                       statusMutation.mutate({
                         parcelId: parcel._id,
                         newStatus: e.target.value,
+                        trackingId: parcel.trackingId,
                       })
                     }
                   >

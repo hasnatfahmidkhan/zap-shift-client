@@ -4,6 +4,7 @@ import {
   MapPin,
   Motorbike,
   Package,
+  PackageCheck,
   PanelRightClose,
   ReceiptText,
   Users,
@@ -17,7 +18,7 @@ import DashBoardProfile from "../../components/DashBoardProfile/DashBoardProfile
 import DashIcon from "../../components/DashIcon/DashIcon";
 import useRole from "../../hooks/useRole";
 import Spinner from "../../components/Spinner/Spinner";
-
+import LogoImg from "../../assets/logo.png";
 const DashboardLayout = () => {
   const { role, userRoleLoading } = useRole();
   const { signOutFunc } = useAuth();
@@ -39,7 +40,7 @@ const DashboardLayout = () => {
       id: 1,
       type: "link",
       label: "Homepage",
-      to: "/",
+      to: "/dashboard",
       icon: <DashIcon Icon={House} />,
       roles: ["admin", "user", "rider"],
     },
@@ -49,7 +50,7 @@ const DashboardLayout = () => {
       label: "My Parcels",
       to: "/dashboard/my-parcels",
       icon: <DashIcon Icon={Package} />,
-      roles: ["admin", "user"],
+      roles: ["admin", "user", "rider"],
     },
     {
       id: 3,
@@ -57,7 +58,7 @@ const DashboardLayout = () => {
       label: "Payment History",
       to: "/dashboard/payment-history",
       icon: <DashIcon Icon={ReceiptText} />,
-      roles: ["admin", "user"], // riders may not need this
+      roles: ["admin", "user", "rider"], // riders may not need this
     },
 
     // Rider-specific routes
@@ -69,10 +70,18 @@ const DashboardLayout = () => {
       icon: <DashIcon Icon={MapPin} />,
       roles: ["rider"],
     },
+    {
+      id: 5,
+      type: "link",
+      label: "Completed Deliveries",
+      to: "/dashboard/completed-deliveries",
+      icon: <DashIcon Icon={PackageCheck} />,
+      roles: ["rider"],
+    },
 
     // Admin-only routes
     {
-      id: 5,
+      id: 6,
       type: "link",
       label: "Approve Rider",
       to: "/dashboard/approve-rider",
@@ -80,7 +89,7 @@ const DashboardLayout = () => {
       roles: ["admin"],
     },
     {
-      id: 6,
+      id: 7,
       type: "link",
       label: "Manage Users",
       to: "/dashboard/manage-users",
@@ -88,7 +97,7 @@ const DashboardLayout = () => {
       roles: ["admin"],
     },
     {
-      id: 7,
+      id: 8,
       type: "link",
       label: "Assign Riders",
       to: "/dashboard/assign-riders",
@@ -98,7 +107,7 @@ const DashboardLayout = () => {
 
     // Common button for logout
     {
-      id: 8,
+      id: 9,
       type: "button",
       label: "Sign Out",
       action: "logout",
@@ -143,9 +152,14 @@ const DashboardLayout = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <div className="flex min-h-full flex-col items-start bg-base-100 shadow-sm is-drawer-close:w-20 is-drawer-open:w-52">
+          <div className="flex min-h-full flex-col items-start bg-base-100 shadow-sm is-drawer-close:w-20 is-drawer-open:w-2/3 md:is-drawer-open:w-64">
             {/* Sidebar content here */}
             <ul className="menu items-center is-drawer-open:items-start w-full grow space-y-3">
+              <li>
+                <Link to={"/"}>
+                  <img src={LogoImg} alt="" />
+                </Link>
+              </li>
               {sidebarLinks
                 .filter((item) => item.roles.includes(role)) // role-based filtering
                 .map((item) => (
@@ -153,7 +167,7 @@ const DashboardLayout = () => {
                     {item.type === "link" ? (
                       <MyLink
                         to={item.to}
-                        end={item.to === "/"}
+                        end={item.to === "/dashboard"}
                         className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                       >
                         {item.icon}

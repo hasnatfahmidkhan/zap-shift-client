@@ -1,6 +1,7 @@
 import { LayoutList, Trash2, WalletCards } from "lucide-react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { Link } from "react-router";
 
 const ParcelsTable = ({ parcels, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -34,21 +35,21 @@ const ParcelsTable = ({ parcels, refetch }) => {
 
   // pay parcel
   const handlePay = async (parcel) => {
-    const paymentInfo = {
+    const parcelInfo = {
       amount: parcel.amount,
       parcelName: parcel.parcelName,
       parcelId: parcel._id,
       senderEmail: parcel.senderEmail,
+      trackingId: parcel.trackingId,
     };
 
     const { data } = await axiosSecure.post(
       "/create-checkout-session",
-      paymentInfo
+      parcelInfo
     );
     const url = data.url;
     window.location.assign(url);
   };
-
   return (
     <div className="overflow-x-auto mt-6 border border-gray-200 rounded-md">
       <table className="table table-zebra">
@@ -83,18 +84,32 @@ const ParcelsTable = ({ parcels, refetch }) => {
                   {parcel.paymentStatus === "paid" ? "Paid" : "Unpaid"}
                 </span>
               </td>
-              <td>{parcel.trackingId}</td>
+              <td>
+                <Link
+                  to={`/track-parcel/${parcel.trackingId}`}
+                  className="hover:underline"
+                >
+                  {parcel.trackingId}
+                </Link>
+              </td>
               <td className="space-x-2">
                 <button
+                  disabled={parcel.paymentStatus === "paid"}
                   onClick={() => handlePay(parcel)}
-                  className="action-btn"
+                  className={`action-btn ${
+                    parcel.paymentStatus === "paid" && "cursor-not-allowed"
+                  }`}
                   data-tip="payment"
                 >
                   <WalletCards color="#03373d" />
                 </button>
-                <button className="action-btn" data-tip="view">
+                <Link
+                  to={`/track-parcel/${parcel.trackingId}`}
+                  className="action-btn"
+                  data-tip="Track Parcel"
+                >
                   <LayoutList color="#03373d" />
-                </button>
+                </Link>
                 <button
                   onClick={() => handleDelete(parcel._id)}
                   className="action-btn"

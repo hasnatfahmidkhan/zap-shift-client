@@ -67,10 +67,10 @@ const PaymentSuccess = () => {
         {/* Action Buttons */}
         <div className="mt-6 flex flex-col gap-3">
           <Link
-            to={`/dashboard/my-parcels`}
+            to={`/track-parcel/${trackingId}`}
             className="btn btn-primary text-secondary w-full"
           >
-            My parcels
+            Track Parcel
           </Link>
 
           <Link to="/dashboard" className="btn w-full">

@@ -1,11 +1,6 @@
 import Spinner from "../../../components/Spinner/Spinner";
 
-const AssignRiderModal = ({
-  riderModalRef,
-  riderLoading,
-  riders,
-  handleAssignRider,
-}) => {
+const AssignRiderModal = ({ riderModalRef, riderLoading, riders, mutate }) => {
   return (
     <dialog ref={riderModalRef} className="modal">
       <div className="modal-box max-w-2xl">
@@ -40,7 +35,7 @@ const AssignRiderModal = ({
                         <td>
                           <button
                             className="btn btn-sm btn-primary text-secondary"
-                            onClick={() => handleAssignRider(rider)}
+                            onClick={() => mutate(rider)}
                           >
                             Assign
                           </button>

@@ -100,9 +100,7 @@ const SendParcel = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         mutate(newParcle);
-        // axiosSecure
-        //   .post("/parcels", newParcle)
-        //   .then(({ data }) => console.log("after post data", data));
+  
         if (isPending) {
           return (
             <div className="flex items-center justify-center h-screen">

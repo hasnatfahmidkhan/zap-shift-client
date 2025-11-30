@@ -20,6 +20,9 @@ import AssignRiders from "../pages/Dashboard/AssignRiders/AssignRiders";
 import AssignedDeliveries from "../pages/Dashboard/AssignedDeliveries/AssignedDeliveries"; // New rider route
 import AdminRoute from "./AdminRoute/AdminRoute";
 import RiderRoute from "./RiderRoute/RiderRoute"; // Custom route to protect rider pages
+import CompletedDeliveries from "../pages/Dashboard/CompletedDevliveries/CompletedDeliveries";
+import TrackParcel from "../pages/TrackParcel/TrackParcel";
+import DashBoardHome from "../pages/Dashboard/DashboardHome/DashBoardHome";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +37,11 @@ export const router = createBrowserRouter([
         path: "/coverage",
         Component: Coverage,
         loader: () => fetch("/serviceCenters.json"),
+      },
+      {
+        path: "/track-parcel/:id",
+        Component: TrackParcel,
+        // loader: () => fetch("/serviceCenters.json"),
       },
       {
         path: "/be-a-rider",
@@ -87,6 +95,10 @@ export const router = createBrowserRouter([
     children: [
       // Routes accessible to normal users
       {
+        path: "/dashboard",
+        Component: DashBoardHome,
+      },
+      {
         path: "/dashboard/my-parcels",
         Component: Myparcels,
       },
@@ -105,6 +117,14 @@ export const router = createBrowserRouter([
         element: (
           <RiderRoute>
             <AssignedDeliveries />
+          </RiderRoute>
+        ),
+      },
+      {
+        path: "/dashboard/completed-deliveries",
+        element: (
+          <RiderRoute>
+            <CompletedDeliveries />
           </RiderRoute>
         ),
       },
