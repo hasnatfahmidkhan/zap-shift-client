@@ -62,17 +62,15 @@ const AssignRiders = () => {
     },
 
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
 
-      if (
-        data?.parcelInfo?.modifyParcel?.modifiedCount &&
-        data?.riderInfo?.modifyParcel?.modifiedCount
-      ) {
-        toast.success("Rider Assigned Successfully");
+      if (data?.parcelInfo?.modifiedCount && data?.riderInfo?.modifiedCount) {
         riderModalRef.current?.close();
+        toast.success("Rider Assigned Successfully");
       }
 
-      // refetch parcels list
+      // refetch parcels and riders list
+      queryClient.invalidateQueries(["parcels", "parcel-paid"]);
       queryClient.invalidateQueries([
         "riders",
         "available",
@@ -84,6 +82,7 @@ const AssignRiders = () => {
       toast.error("Failed to assign rider");
     },
   });
+
   return (
     <div>
       <h3 className="heading">Assign Riders {parcels?.length}</h3>

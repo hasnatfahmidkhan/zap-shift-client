@@ -13,7 +13,7 @@ const PaymentSuccess = () => {
       axiosSecure
         .patch(`/payment-success?session_id=${session_id}`)
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           setPaymentInfo(data);
           // window.location.href = "/dashboard/my-parcels";
         });

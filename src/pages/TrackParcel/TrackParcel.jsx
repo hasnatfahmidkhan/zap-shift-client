@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import {
   MapPin,
-  Package,
   Truck,
   Home,
   CheckCircle,
-  Clock,
   MapPinCheck,
   User,
+  PackageCheck,
+  CircleCheck,
 } from "lucide-react";
 import { useParams } from "react-router";
 import useAxios from "../../hooks/useAxios";
@@ -31,7 +31,8 @@ export default function ParcelTracker() {
   console.log(trackingData);
   // Status to icon mapping
   const statusIconMap = {
-    "parcel-paid": Package,
+    "parcel-created": PackageCheck,
+    "parcel-paid": CircleCheck,
     "rider-assigned": User,
     confirm: CheckCircle,
     "pick-up": Truck,
@@ -41,6 +42,7 @@ export default function ParcelTracker() {
 
   // Status to label mapping
   const statusLabelMap = {
+    "parcel-created": "Parcel Created",
     "parcel-paid": "Parcel Paid",
     "rider-assigned": "Rider Assigned",
     confirm: "Confirmed",
@@ -54,6 +56,7 @@ export default function ParcelTracker() {
     if (!trackingData || trackingData.length === 0) return [];
 
     const allStatuses = [
+      "parcel-created",
       "parcel-paid",
       "rider-assigned",
       "confirm",
@@ -105,6 +108,7 @@ export default function ParcelTracker() {
   const progressPercentage = (completedStatuses.length / 6) * 100;
 
   const allStatuses = [
+    "parcel-created",
     "parcel-paid",
     "rider-assigned",
     "confirm",
@@ -165,7 +169,7 @@ export default function ParcelTracker() {
                 {Math.round(progressPercentage)}%
               </p>
               <p className="text-xs text-gray-500 mt-2">
-                {completedStatuses.length} of 6 steps
+                {completedStatuses.length} of 7 steps
               </p>
             </div>
           </div>

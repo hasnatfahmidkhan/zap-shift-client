@@ -46,7 +46,7 @@ const AdminDashBoardHome = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["parcels/delivery-stats"],
+    queryKey: ["parcels-delivery-stats"],
     queryFn: async () =>
       (await axiosSecure.get("/parcels/delivery-stats")).data,
   });
