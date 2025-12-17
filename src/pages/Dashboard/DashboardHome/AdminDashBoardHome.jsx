@@ -10,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const RADIAN = Math.PI / 180;
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -39,6 +40,22 @@ const renderCustomizedLabel = ({
   );
 };
 
+const CustomToolTip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const { name, value } = payload[0];
+    return (
+      <div className="bg-white shadow-xl p-3 rounded-xl border text-sm">
+        <p className="font-semibold capitalize">{name.replace("-", " ")}</p>
+
+        <p className="text-gray-700">
+          Parcels: <span className="font-semibold">{value}</span>
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 const AdminDashBoardHome = () => {
   const axiosSecure = useAxiosSecure();
   const {
@@ -50,7 +67,7 @@ const AdminDashBoardHome = () => {
     queryFn: async () =>
       (await axiosSecure.get("/parcels/delivery-stats")).data,
   });
-
+  console.log(deliveryStats);
   const transformedData = React.useMemo(() => {
     return deliveryStats.map((item) => ({
       name: item.status,
@@ -58,7 +75,7 @@ const AdminDashBoardHome = () => {
     }));
   }, [deliveryStats]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
   if (isError) return <p>Error loading stats.</p>;
 
   return (
@@ -104,7 +121,7 @@ const AdminDashBoardHome = () => {
                 />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip content={<CustomToolTip />} />
             <Legend />
           </PieChart>
         </ResponsiveContainer>

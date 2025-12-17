@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
-  baseURL: "https://zap-shift-server-lyart.vercel.app",
+  baseURL: import.meta.env.VITE_SITE_DOMAIN,
 });
 
 const useAxiosSecure = () => {

@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import RiderDetailsModal from "./RiderDetailsModal";
 import { useRef, useState } from "react";
 
-const RiderTable = ({ riders, refetch }) => {
+const RiderTable = ({ riders, refetch, page, limit }) => {
   const axiosSecure = useAxiosSecure();
   const modalRef = useRef();
   const [riderDetails, setRiderDetails] = useState(null);
@@ -79,7 +79,7 @@ const RiderTable = ({ riders, refetch }) => {
           {/* row 1 */}
           {riders?.map((rider, i) => (
             <tr key={rider._id}>
-              <td>{i + 1}</td>
+              <td>{(page - 1) * limit + (i + 1)}</td>
               <td className="flex flex-col gap-1">
                 <span>Name: {rider.name}</span>
                 <span>Phone: {rider.phone}</span>

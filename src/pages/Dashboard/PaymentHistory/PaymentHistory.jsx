@@ -1,7 +1,7 @@
+import { PaymentHistoryTableSkeleton } from "../../../components/skeletons";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import DashboardContainer from "../shared/DashboardContainer";
-import TableLoader from "../shared/TableLoader";
 import PaymentTable from "./PaymentTable/PaymentTable";
 import { useQuery } from "@tanstack/react-query";
 
@@ -30,7 +30,11 @@ const PaymentHistory = () => {
   return (
     <DashboardContainer>
       <h3 className="heading">Payment History</h3>
-      {isPending ? <TableLoader /> : <PaymentTable payments={payments} />}
+      {isPending ? (
+        <PaymentHistoryTableSkeleton />
+      ) : (
+        <PaymentTable payments={payments} />
+      )}
     </DashboardContainer>
   );
 };

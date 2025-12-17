@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 import { Search, SkipBack, SkipForward } from "lucide-react";
 import useDebounce from "../../../hooks/useDebounce";
+import DashboardContainer from "../shared/DashboardContainer";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -65,7 +66,7 @@ const ManageUsers = () => {
     });
   };
   return (
-    <div>
+    <DashboardContainer>
       <div className="py-5 flex items-center justify-between">
         <h2 className="heading">Manage Users: {totalUsers}</h2>
         <label className="input focus-within:input-accent">
@@ -110,7 +111,7 @@ const ManageUsers = () => {
           <SkipForward size={18} />
         </button>
       </div>
-    </div>
+    </DashboardContainer>
   );
 };
 
