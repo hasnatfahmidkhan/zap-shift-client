@@ -24,6 +24,7 @@ import CompletedDeliveries from "../pages/Dashboard/CompletedDevliveries/Complet
 import TrackParcel from "../pages/TrackParcel/TrackParcel";
 import DashBoardHome from "../pages/Dashboard/DashboardHome/DashBoardHome";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import NotFound from "../pages/NotFound/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -161,4 +162,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "*",
+    Component: NotFound,
+  }
 ]);

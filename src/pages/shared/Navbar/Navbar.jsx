@@ -43,9 +43,6 @@ const Navbar = () => {
         <MyLink to={"/about-us"}>About Us</MyLink>
       </li>
       <li>
-        <MyLink to={"/pricing"}>Pricing</MyLink>
-      </li>
-      <li>
         <MyLink to={"/send-parcel"}>Send Parcel</MyLink>
       </li>
     </>
@@ -70,13 +67,6 @@ const Navbar = () => {
           About Us
         </NavLink>
       </li>
-      <li>
-        <NavLink className={"phone-link"} to={"/pricing"}>
-          <Tags />
-          Pricing
-        </NavLink>
-      </li>
-
       <li>
         <NavLink className={"phone-link"} to={"/send-parcel"}>
           <Bike />
