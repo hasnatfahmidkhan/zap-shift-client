@@ -92,7 +92,7 @@ const Navbar = () => {
     </>
   );
 
-  const userLinks = (
+  const privateLinks = (
     <>
       <li>
         <Link className={"mb-2.5 bg-base-100 text-[#000000]"} to={"/profile"}>
@@ -117,13 +117,13 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-base-100 shadow-sm p-4">
+    <nav className="bg-base-100 shadow-sm p-4 sticky top-0 z-50">
       <div className="p-0 max-w-7xl mx-auto navbar">
         <div className="navbar-start gap-2">
           {user && (
             <ProfileNav
               user={user}
-              userLinks={userLinks}
+              privateLinks={privateLinks}
               className={"dropdown-start mr-2"}
             />
           )}

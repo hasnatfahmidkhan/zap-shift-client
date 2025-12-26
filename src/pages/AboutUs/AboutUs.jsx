@@ -1,12 +1,4 @@
-import React from "react";
-import {
-  CheckCircle,
-  Zap,
-  Package,
-  MapPin,
-  Shield,
-  TrendingUp,
-} from "lucide-react";
+import { CheckCircle, Zap, Package, Shield, TrendingUp } from "lucide-react";
 
 export default function AboutUs() {
   const features = [
@@ -81,13 +73,13 @@ export default function AboutUs() {
               <div className="space-y-3">
                 {benefits.slice(0, 3).map((benefit, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-lime-500 flex-shrink-0 mt-1" />
+                    <CheckCircle className="w-6 h-6 text-lime-500 shrink-0 mt-1" />
                     <span className="text-gray-700">{benefit}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-gradient-to-br from-lime-400 to-lime-300 rounded-2xl h-80 flex items-center justify-center">
+            <div className="bg-linear-to-br from-lime-400 to-lime-300 rounded-2xl h-80 flex items-center justify-center">
               <div className="text-center">
                 <Package className="w-32 h-32 text-lime-900 mx-auto mb-4 opacity-80" />
                 <p className="text-lime-900 font-semibold text-lg">
@@ -123,7 +115,7 @@ export default function AboutUs() {
         </div>
 
         {/* Mission Section */}
-        <div className="bg-gradient-to-r from-teal-900 to-teal-800 text-white rounded-2xl p-12 mb-20">
+        <div className="bg-linear-to-r from-teal-900 to-teal-800 text-white rounded-2xl p-12 mb-20">
           <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
           <p className="text-lg leading-relaxed max-w-3xl">
             To empower businesses with intelligent, efficient, and transparent
@@ -144,7 +136,7 @@ export default function AboutUs() {
                 key={idx}
                 className="flex items-start gap-4 bg-white p-6 rounded-lg border border-gray-200"
               >
-                <CheckCircle className="w-6 h-6 text-lime-500 flex-shrink-0 mt-0.5" />
+                <CheckCircle className="w-6 h-6 text-lime-500 shrink-0 mt-0.5" />
                 <span className="text-gray-700 font-medium">{benefit}</span>
               </div>
             ))}
