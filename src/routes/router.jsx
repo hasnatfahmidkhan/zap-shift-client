@@ -23,6 +23,7 @@ import RiderRoute from "./RiderRoute/RiderRoute"; // Custom route to protect rid
 import CompletedDeliveries from "../pages/Dashboard/CompletedDevliveries/CompletedDeliveries";
 import TrackParcel from "../pages/TrackParcel/TrackParcel";
 import DashBoardHome from "../pages/Dashboard/DashboardHome/DashBoardHome";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
         path: "/coverage",
         Component: Coverage,
         loader: () => fetch("/serviceCenters.json"),
+      },
+      {
+        path: "/about-us",
+        Component: AboutUs,
       },
       {
         path: "/track-parcel/:id",

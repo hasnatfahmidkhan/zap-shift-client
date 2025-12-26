@@ -21,12 +21,12 @@ const Reviews = ({ reviewsPromise }) => {
   const swiperRef = useRef(null);
 
   return (
-    <section className="bg-black">
+    <section className="bg-secondary py-16 px-6 rounded-xl">
       <div className="flex flex-col justify-center items-center text-center gap-8 mb-10">
         <img className="h-full" src={customerTop} alt="" />
         <div className="space-y-4">
           <h3 className="heading">What our customers are sayings</h3>
-          <p className="max-w-2xl text-accent tracking-wide font-medium">
+          <p className="max-w-2xl text-accent-content tracking-wide font-medium">
             Enhance posture, mobility, and well-being effortlessly with Posture
             Pro. Achieve proper alignment, reduce pain, and strengthen your body
             with ease!

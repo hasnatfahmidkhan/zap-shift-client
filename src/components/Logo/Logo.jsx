@@ -9,7 +9,7 @@ const Logo = ({ className }) => {
         <h3
           className={`text-2xl md:text-3xl -ms-2.5 font-extrabold text-[#303030] translate-y-1 ${className}`}
         >
-          ZapShift
+          DoorKnock
         </h3>
       </div>
     </Link>

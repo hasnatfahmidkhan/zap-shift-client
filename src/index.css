@@ -38,7 +38,7 @@ body {
 }
 
 .swiper-pagination-bullet-active {
-  background: var(--color-secondary) !important; /* Active color */
+  background: var(--color-primary) !important; /* Active color */
 }
 
 .swiper-pagination-bullet {

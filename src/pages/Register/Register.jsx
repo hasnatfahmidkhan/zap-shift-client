@@ -104,7 +104,7 @@ const Register = () => {
       <div className="mb-5 space-y-2">
         <h2 className="text-4xl md:text-5xl font-bold">Create an Account</h2>
         <p className="text-[#000000] font-medium tracking-wide">
-          Register with ZapShift
+          Register with DoorKnock
         </p>
       </div>
       <div className="card w-full max-w-sm shrink-0 border border-gray-100 shadow-sm">

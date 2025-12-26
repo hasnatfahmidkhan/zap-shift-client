@@ -69,7 +69,7 @@ const Login = () => {
       <div className="mb-5 space-y-2 w-full">
         <h2 className="text-5xl font-bold">Welcome Back</h2>
         <p className="text-[#000000] font-medium tracking-wide">
-          Login with ZapShift
+          Login with DoorKnock
         </p>
       </div>
       <div className="card w-full max-w-sm shrink-0 border border-gray-100 shadow-sm">
