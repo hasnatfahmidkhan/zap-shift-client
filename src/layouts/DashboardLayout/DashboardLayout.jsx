@@ -9,6 +9,7 @@ import {
   PackageCheck,
   PanelRightClose,
   ReceiptText,
+  UserRoundPen,
   Users,
 } from "lucide-react";
 import { Link, Outlet } from "react-router";
@@ -48,6 +49,14 @@ const DashboardLayout = () => {
         <DashIcon Icon={ChartNoAxesCombined} />
       ),
       roles: ["admin", "rider"],
+    },
+    {
+      id: 1,
+      type: "link",
+      label: "Profile",
+      to: "/dashboard/profile",
+      icon: <DashIcon Icon={UserRoundPen} />,
+      roles: ["admin", "rider", "user"],
     },
     {
       id: 2,
@@ -161,9 +170,9 @@ const DashboardLayout = () => {
           <div className="flex min-h-full flex-col items-start bg-base-100 shadow-sm is-drawer-close:w-20 is-drawer-open:w-2/3 md:is-drawer-open:w-64">
             {/* Sidebar content here */}
             <ul className="menu items-center is-drawer-open:items-start w-full grow space-y-3">
-              <li>
-                <Link to={"/"}>
-                  <img src={LogoImg} alt="" />
+              <li className="mt-3">
+                <Link to={"/"} className="active:bg-base-200">
+                  <img className="w-16" src="/logo.png" alt="" />
                 </Link>
               </li>
               {sidebarLinks

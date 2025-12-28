@@ -85,10 +85,6 @@ export const router = createBrowserRouter([
         path: "/forget-password",
         Component: ForgetPassword,
       },
-      {
-        path: "/profile",
-        element: <Profile />,
-      },
     ],
   },
   {
@@ -99,6 +95,10 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "/dashboard/profile",
+        element: <Profile />,
+      },
       // Routes accessible to normal users
       {
         path: "/dashboard",

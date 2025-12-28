@@ -11,7 +11,7 @@ const DashBoardHome = () => {
     return <Spinner />;
   }
   if (role === "user") {
-    return <Navigate to={"/dashboard/my-parcels"} />;
+    return <Navigate to={"/dashboard/profile"} />;
   }
   if (role === "admin") {
     return <AdminDashBoardHome />;
