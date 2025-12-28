@@ -27,35 +27,7 @@ const Myparcels = () => {
     <DashboardContainer>
       <h2 className="heading">My Parcel</h2>
 
-      <div className="mt-7 flex items-center gap-5">
-        <div className="flex items-center px-10 gap-7 h-32 w-80 rounded-2xl bg-base-200">
-          <div className="border rounded-full p-3 border-gray-300">
-            <Truck size={30} />
-          </div>
-          <div className="space-y-1">
-            <p className="text-xl text-secondary font-medium ">Total</p>
-            <h2 className="text-3xl font-semibold tracking-wide">1208</h2>
-          </div>
-        </div>
-        <div className="flex items-center px-10 gap-7 h-32 w-80 rounded-2xl bg-base-200">
-          <div className="border rounded-full p-3 border-gray-300">
-            <Truck size={30} />
-          </div>
-          <div className="space-y-1">
-            <p className="text-xl text-secondary font-medium ">Total</p>
-            <h2 className="text-3xl font-semibold tracking-wide">1208</h2>
-          </div>
-        </div>
-        <div className="flex items-center px-10 gap-7 h-32 w-80 rounded-2xl bg-base-200">
-          <div className="border rounded-full p-3 border-gray-300">
-            <Truck size={30} />
-          </div>
-          <div className="space-y-1">
-            <p className="text-xl text-secondary font-medium ">Total</p>
-            <h2 className="text-3xl font-semibold tracking-wide">1208</h2>
-          </div>
-        </div>
-      </div>
+      
       {isLoading ? (
         <MyParcelTableSkeleton />
       ) : (

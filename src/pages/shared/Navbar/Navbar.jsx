@@ -117,7 +117,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-base-100 shadow-sm p-4 sticky top-0 z-50">
+    <nav className="bg-base-100 shadow-sm p-4 sticky top-0 z-999">
       <div className="p-0 max-w-7xl mx-auto navbar">
         <div className="navbar-start gap-2">
           {user && (

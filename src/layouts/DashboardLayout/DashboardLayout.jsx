@@ -1,4 +1,5 @@
 import {
+  ChartNoAxesCombined,
   House,
   LogOut,
   MapPin,
@@ -41,7 +42,7 @@ const DashboardLayout = () => {
       type: "link",
       label: "Homepage",
       to: "/dashboard",
-      icon: <DashIcon Icon={House} />,
+      icon: <DashIcon Icon={ChartNoAxesCombined} />,
       roles: ["admin", "user", "rider"],
     },
     {
@@ -122,7 +123,7 @@ const DashboardLayout = () => {
         <input id="sidebar" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar justify-between items-center w-full bg-base-100 py-3.5 px-6">
+          <nav className="navbar justify-between items-center w-full bg-base-100 py-3.5 px-6 sticky top-0 z-30 shadow-sm">
             {/* logo and open icon  */}
             <div className="flex items-center">
               <label

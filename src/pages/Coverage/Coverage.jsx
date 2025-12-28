@@ -42,7 +42,7 @@ const Coverage = () => {
                 className="w-full"
                 name="location"
                 type="search"
-                placeholder="Search here"
+                placeholder="Search by district one.g. Dhaka, Chattogram"
                 required
               />
             </label>

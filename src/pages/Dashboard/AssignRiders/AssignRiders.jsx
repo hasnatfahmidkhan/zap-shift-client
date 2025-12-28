@@ -84,7 +84,7 @@ const AssignRiders = () => {
   });
 
   return (
-    <div>
+    <div className="bg-gray-50 min-h-[calc(100vh-100px)] p-4 md:p-6 rounded-xl">
       <h3 className="heading">Assign Riders {parcels?.length}</h3>
       <AssignRidersTable
         OpenAssignRiderModal={OpenAssignRiderModal}

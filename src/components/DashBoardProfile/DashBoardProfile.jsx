@@ -1,20 +1,11 @@
-import { ChevronDown } from "lucide-react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import useAuth from "../../hooks/useAuth";
 
 const DashBoardProfile = ({ className = "" }) => {
   const { user } = useAuth();
 
-  if (!user) return null;
-  const menuLinks = [
-    { id: 1, label: "Profile" },
-    { id: 2, label: "Settings" },
-    { id: 3, label: "Help" },
-    { id: 4, label: "Logout" },
-  ];
-
   return (
-    <div className={`dropdown dropdown-end ${className}`}>
+    <div className={`dropdown dropdown-end ${className} z-999`}>
       <button tabIndex={0} className="flex items-center gap-5 cursor-pointer">
         <ProfileIcon user={user} />
 
@@ -22,19 +13,7 @@ const DashBoardProfile = ({ className = "" }) => {
           <h4 className="text-lg font-semibold">{user.displayName}</h4>
           <p className="text-sm text-accent font-medium">Admin</p>
         </div>
-        <ChevronDown size={20} className="text-gray-600 hidden md:block" />
       </button>
-
-      <ul
-        tabIndex={0}
-        className="dropdown-content menu menu-lg bg-base-100 rounded-box z-20 w-52 p-4 shadow-sm font-semibold tracking-wide divide-y divide-gray-400 divide-dashed space-y-2 border border-gray-200"
-      >
-        {menuLinks?.map(({ id, label }) => (
-          <li key={id} className="py-2 cursor-pointer">
-            {label}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

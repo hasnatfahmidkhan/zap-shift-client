@@ -12,7 +12,7 @@ const ManageUsers = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const debounceSearch = useDebounce(search, 500);
-  const limit = 5;
+  const limit = 8;
   const {
     data: users,
     isPending,
