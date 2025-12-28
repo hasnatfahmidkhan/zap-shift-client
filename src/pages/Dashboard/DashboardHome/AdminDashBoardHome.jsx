@@ -18,6 +18,7 @@ import {
   UserCheck,
   PackageCheck,
   Bike,
+  Motorbike,
 } from "lucide-react";
 import {
   AreaChart,
@@ -37,6 +38,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Spinner from "../../../components/Spinner/Spinner";
+import NotificationDropdown from "./Notification";
 
 // Chart constants
 const RADIAN = Math.PI / 180;
@@ -379,16 +381,6 @@ const AnalyticsDashboard = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Search */}
-            <div className="hidden lg:flex items-center bg-gray-100 rounded-xl px-4 py-2.5 focus-within:ring-2 focus-within:ring-lime-500/50 transition-all w-72">
-              <Search className="w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="bg-transparent border-none text-sm text-gray-900 placeholder-gray-400 focus:ring-0 focus:outline-none w-full ml-3"
-              />
-            </div>
-
             {/* Date Filter Dropdown */}
             <div className="relative group">
               <button className="flex items-center gap-2 bg-white rounded-xl px-4 py-2.5 border border-gray-200 hover:border-lime-500/50 hover:bg-gray-50 transition-colors">
@@ -435,7 +427,7 @@ const AnalyticsDashboard = () => {
             </button>
 
             {/* Notifications */}
-            <button className="relative w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-lime-500/50 transition-all">
+            {/* <button className="relative w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-lime-500/50 transition-all">
               <Bell className="w-5 h-5" />
               {dashboardData.pendingParcels > 0 && (
                 <span className="absolute -top-1 -right-1 min-w-5 h-5 bg-red-500 rounded-full text-white text-xs flex items-center justify-center px-1.5 font-medium">
@@ -444,7 +436,8 @@ const AnalyticsDashboard = () => {
                     : dashboardData.pendingParcels}
                 </span>
               )}
-            </button>
+            </button> */}
+            <NotificationDropdown />
           </div>
         </div>
       </header>
@@ -461,16 +454,19 @@ const AnalyticsDashboard = () => {
           </div>
           <div className="flex gap-3">
             <Link
-              to="/admin/orders"
+              to="/dashboard/assign-riders"
               className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all text-sm"
             >
               <Package className="w-4 h-4" />
-              View Orders
+              Assign Parcel
             </Link>
-            <button className="flex items-center justify-center gap-2 px-5 py-2.5 bg-lime-500 hover:bg-lime-600 text-white font-semibold rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-lime-500/25">
-              <Download className="w-4 h-4" />
-              Export Report
-            </button>
+            <Link
+              to={"/dashboard/approve-rider"}
+              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-lime-500 hover:bg-lime-600 text-white font-semibold rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-lime-500/25 cursor-pointer"
+            >
+              <Motorbike className="w-4 h-4" />
+              Approve Rider
+            </Link>
           </div>
         </div>
 

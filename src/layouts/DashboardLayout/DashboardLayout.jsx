@@ -21,6 +21,7 @@ import DashIcon from "../../components/DashIcon/DashIcon";
 import useRole from "../../hooks/useRole";
 import Spinner from "../../components/Spinner/Spinner";
 import LogoImg from "../../assets/logo.png";
+import ScrollToTop from "../../../../../Schollership Management System/Schollership Client/src/components/ScrollToUp/ScrollToUp";
 const DashboardLayout = () => {
   const { role, userRoleLoading } = useRole();
   const { signOutFunc } = useAuth();
@@ -43,9 +44,9 @@ const DashboardLayout = () => {
       type: "link",
       label: "Analytics",
       to: "/dashboard",
-      icon:
-        role === "admin" ||
-        (role === "rider" && <DashIcon Icon={ChartNoAxesCombined} />),
+      icon: (role === "admin" || role === "rider") && (
+        <DashIcon Icon={ChartNoAxesCombined} />
+      ),
       roles: ["admin", "rider"],
     },
     {
@@ -54,7 +55,7 @@ const DashboardLayout = () => {
       label: "My Parcels",
       to: "/dashboard/my-parcels",
       icon: <DashIcon Icon={Package} />,
-      roles: ["admin", "user", "rider"],
+      roles: ["user", "rider"],
     },
     {
       id: 3,
@@ -62,7 +63,7 @@ const DashboardLayout = () => {
       label: "Payment History",
       to: "/dashboard/payment-history",
       icon: <DashIcon Icon={ReceiptText} />,
-      roles: ["admin", "user", "rider"], // riders may not need this
+      roles: ["user", "rider"], // riders may not need this
     },
 
     // Rider-specific routes
@@ -105,7 +106,7 @@ const DashboardLayout = () => {
       type: "link",
       label: "Assign Riders",
       to: "/dashboard/assign-riders",
-      icon: <DashIcon Icon={MapPin} />,
+      icon: <DashIcon Icon={Package} />,
       roles: ["admin"],
     },
 
@@ -147,6 +148,7 @@ const DashboardLayout = () => {
           {/* Page content here */}
           <div className="p-5">
             <Outlet />
+            <ScrollToTop />
           </div>
         </div>
 

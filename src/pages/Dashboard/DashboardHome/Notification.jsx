@@ -13,8 +13,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { formatDistanceToNow } from "date-fns";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const NotificationDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -113,27 +113,13 @@ const NotificationDropdown = () => {
     }
   };
 
-  // Get link based on notification type
-  const getNotificationLink = (notification) => {
-    switch (notification.type) {
-      case "new-order":
-      case "payment-received":
-      case "delivery-completed":
-        return `/admin/orders`;
-      case "rider-application":
-        return `/admin/riders`;
-      default:
-        return "#";
-    }
-  };
-
   return (
     <div className="relative" ref={dropdownRef}>
       {/* Notification Bell Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          relative w-10 h-10 rounded-xl border flex items-center justify-center transition-all
+          relative w-10 h-10 rounded-xl border flex items-center justify-center transition-all cursor-pointer
           ${
             isOpen
               ? "bg-lime-50 border-lime-300 text-lime-600"
@@ -177,7 +163,7 @@ const NotificationDropdown = () => {
               )}
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -221,11 +207,7 @@ const NotificationDropdown = () => {
 
                       {/* Content */}
                       <div className="flex-1 min-w-0">
-                        <Link
-                          to={getNotificationLink(notification)}
-                          onClick={() => setIsOpen(false)}
-                          className="block"
-                        >
+                        <div onClick={() => setIsOpen(false)} className="block">
                           <p
                             className={`text-sm font-medium text-gray-900 truncate ${
                               !notification.isRead ? "font-semibold" : ""
@@ -250,7 +232,7 @@ const NotificationDropdown = () => {
                               </>
                             )}
                           </div>
-                        </Link>
+                        </div>
                       </div>
 
                       {/* Delete Button */}
@@ -277,7 +259,7 @@ const NotificationDropdown = () => {
           </div>
 
           {/* Footer */}
-          {notifications.length > 0 && (
+          {/* {notifications.length > 0 && (
             <div className="border-t border-gray-100 p-3 bg-gray-50">
               <Link
                 to="/admin/notifications"
@@ -288,7 +270,7 @@ const NotificationDropdown = () => {
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
-          )}
+          )} */}
         </div>
       )}
     </div>

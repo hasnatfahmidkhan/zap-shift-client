@@ -24,7 +24,7 @@ const ManageUsers = () => {
       const { data } = await axiosSecure.get(
         `/users?limit=${limit}&skip=${skip}&search=${search}`
       );
-      console.log(data);
+      // console.log(data);
       return data;
     },
   });
@@ -69,17 +69,18 @@ const ManageUsers = () => {
     <DashboardContainer>
       <div className="py-5 flex items-center justify-between">
         <h2 className="heading">Manage Users: {totalUsers}</h2>
-        <label className="input focus-within:input-accent">
-          <Search size={16} />
+        {/* Search */}
+        <div className="flex items-center bg-gray-100 rounded-xl px-4 py-2.5 focus-within:ring-2 focus-within:ring-lime-500/50 transition-all w-full md:w-72">
+          <Search className="w-4 h-4 text-gray-400" />
           <input
             onChange={(e) =>
               setSearch(e.target.value.trim().toLocaleLowerCase())
             }
             type="search"
-            required
-            placeholder="Search"
+            placeholder="Search riders..."
+            className="bg-transparent border-none text-sm text-gray-900 placeholder-gray-400 focus:ring-0 focus:outline-none w-full ml-3"
           />
-        </label>
+        </div>
       </div>
       <UsersTable
         users={users?.users}

@@ -35,7 +35,7 @@ const AssignRiders = () => {
       const { data } = await axiosSecure.get(
         `/riders?status=approved&workStatus=available&district=${selectedParcel.senderDistrict}`
       );
-      return data;
+      return data?.result;
     },
   });
 
