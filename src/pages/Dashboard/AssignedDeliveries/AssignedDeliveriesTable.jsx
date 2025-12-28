@@ -486,7 +486,7 @@ const AssignedDeliveriesTable = ({ isLoading, parcels, refetch }) => {
       </div>
 
       {/* Desktop Table View */}
-      <div className="hidden lg:block overflow-x-auto bg-white border border-gray-200 rounded-xl">
+      <div className="hidden lg:block overflow-x-auto border border-gray-200 rounded-xl">
         <table className="table table-zebra w-full">
           <thead>
             <tr className="bg-base-200 text-black">
@@ -502,7 +502,7 @@ const AssignedDeliveriesTable = ({ isLoading, parcels, refetch }) => {
           <tbody>
             {parcels.length === 0 ? (
               <tr>
-                <td colSpan={7} className="text-center py-8">
+                <td colSpan={7} className="text-center bg-white py-8">
                   <div className="flex flex-col items-center gap-2">
                     <Truck className="w-12 h-12 text-gray-300" />
                     <span className="text-gray-500">

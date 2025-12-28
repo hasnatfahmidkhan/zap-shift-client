@@ -280,6 +280,18 @@ const ParcelsTable = ({ parcels, refetch }) => {
             ))}
           </tbody>
         </table>
+        {/* Empty State */}
+        {(!parcels || parcels.length === 0) && (
+          <div className="text-center py-12">
+            <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-600">
+              No parcels found
+            </h3>
+            <p className="text-gray-400 text-sm mt-1">
+              Your parcels will appear here
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
