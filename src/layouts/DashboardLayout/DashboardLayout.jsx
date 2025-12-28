@@ -21,7 +21,8 @@ import DashBoardProfile from "../../components/DashBoardProfile/DashBoardProfile
 import DashIcon from "../../components/DashIcon/DashIcon";
 import useRole from "../../hooks/useRole";
 import Spinner from "../../components/Spinner/Spinner";
-import ScrollToTop from "../../../../../Schollership Management System/Schollership Client/src/components/ScrollToUp/ScrollToUp";
+import Wrapper from "../../components/Wrapper/Wrapper";
+
 const DashboardLayout = () => {
   const { role, userRoleLoading } = useRole();
   const { signOutFunc } = useAuth();
@@ -157,7 +158,7 @@ const DashboardLayout = () => {
           {/* Page content here */}
           <div className="p-5">
             <Outlet />
-            <ScrollToTop />
+            <Wrapper />
           </div>
         </div>
 
