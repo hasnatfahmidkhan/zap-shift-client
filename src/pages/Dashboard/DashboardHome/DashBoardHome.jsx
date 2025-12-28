@@ -1,8 +1,8 @@
+import { Navigate } from "react-router";
 import Spinner from "../../../components/Spinner/Spinner";
 import useRole from "../../../hooks/useRole";
 import AdminDashBoardHome from "./AdminDashBoardHome";
 import RiderDashBoardHome from "./RiderDashBoardHome";
-import UserDashBoardHome from "./UserDashBoardHome";
 
 const DashBoardHome = () => {
   const { role, userRoleLoading } = useRole();
@@ -10,14 +10,14 @@ const DashBoardHome = () => {
   if (userRoleLoading) {
     return <Spinner />;
   }
+  if (role === "user") {
+    return <Navigate to={"/dashboard/my-parcels"} />;
+  }
   if (role === "admin") {
     return <AdminDashBoardHome />;
   }
   if (role === "rider") {
     return <RiderDashBoardHome />;
-  }
-  if (role === "user") {
-    return <UserDashBoardHome />;
   }
 };
 

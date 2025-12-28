@@ -1,5 +1,6 @@
 import {
   ChartNoAxesCombined,
+  Home,
   House,
   LogOut,
   MapPin,
@@ -40,10 +41,10 @@ const DashboardLayout = () => {
     {
       id: 1,
       type: "link",
-      label: "Homepage",
+      label: "Analytics",
       to: "/dashboard",
-      icon: <DashIcon Icon={ChartNoAxesCombined} />,
-      roles: ["admin", "user", "rider"],
+      icon: role === "admin" && <DashIcon Icon={ChartNoAxesCombined} />,
+      roles: ["admin"],
     },
     {
       id: 2,
