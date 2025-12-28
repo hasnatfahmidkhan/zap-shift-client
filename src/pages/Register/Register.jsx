@@ -1,12 +1,13 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import imageUpload from "../../assets/image-upload.png";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import SocialBtn from "../shared/SocialBtn/SocialBtn";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import { uploadImage } from "../../utils";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Eye, EyeOff } from "lucide-react";
 const Register = () => {
   const axiosSecure = useAxiosSecure();
   const {
@@ -20,6 +21,8 @@ const Register = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const fileInputRef = useRef();
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -102,12 +105,12 @@ const Register = () => {
   return (
     <section>
       <div className="mb-5 space-y-2">
-        <h2 className="text-4xl md:text-5xl font-bold">Create an Account</h2>
+        <h2 className="text-4xl lg:text-5xl font-bold">Create an Account</h2>
         <p className="text-[#000000] font-medium tracking-wide">
-          Register with DoorKnock
+          Register at DoorKnock
         </p>
       </div>
-      <div className="card w-full max-w-sm shrink-0 border border-gray-100 shadow-sm">
+      <div className="card w-full max-w-sm shrink-0 bg-gray-100 border border-gray-100 shadow-sm">
         <div className="card-body">
           <form onSubmit={handleSubmit(handleRegister)}>
             <fieldset className="fieldset space-y-2">
@@ -238,21 +241,31 @@ const Register = () => {
                 <label className="label">
                   Password<span className="text-red-500">*</span>
                 </label>
-                <input
-                  disabled={authLoading}
-                  type="password"
-                  className="input-style"
-                  placeholder="Password"
-                  {...register("password", {
-                    required: "Password is required",
-                    pattern: {
-                      value:
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$#!%*?&]{6,}$/,
-                      message:
-                        "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long",
-                    },
-                  })}
-                />
+                <div className="relative flex items-center">
+                  <input
+                    disabled={authLoading}
+                    type={showPassword ? "text" : "password"}
+                    className="input-style"
+                    placeholder="Password"
+                    {...register("password", {
+                      required: "Password is required",
+                      pattern: {
+                        value:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$#!%*?&]{6,}$/,
+                        message:
+                          "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long",
+                      },
+                    })}
+                  />
+                  <div className="absolute right-3 top-0 z-50">
+                    <span
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="ml-[-30px] cursor-pointer"
+                    >
+                      {showPassword ? <EyeOff /> : <Eye />}
+                    </span>
+                  </div>
+                </div>
                 {errors.password?.type === "required" && (
                   <p className="text-red-600 mt-1 tracking-wide">
                     {errors.password?.message}
