@@ -43,8 +43,10 @@ const DashboardLayout = () => {
       type: "link",
       label: "Analytics",
       to: "/dashboard",
-      icon: role === "admin" && <DashIcon Icon={ChartNoAxesCombined} />,
-      roles: ["admin"],
+      icon:
+        role === "admin" ||
+        (role === "rider" && <DashIcon Icon={ChartNoAxesCombined} />),
+      roles: ["admin", "rider"],
     },
     {
       id: 2,

@@ -46,7 +46,7 @@ const RiderDashBoardHome = () => {
   );
 
   return (
-    <div className="p-8 bg-linear-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div className="p-8 bg-gray-50 min-h-[80vh] rounded-xl">
       {/* Header */}
       <div className="mb-8">
         <h3 className="text-3xl font-bold text-gray-800">
