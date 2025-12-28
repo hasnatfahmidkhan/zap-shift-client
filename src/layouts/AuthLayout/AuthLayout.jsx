@@ -1,17 +1,7 @@
 import Logo from "../../components/Logo/Logo";
 import authImage from "../../assets/authImage.png";
-import { Outlet, useNavigate } from "react-router";
-import useAuth from "../../hooks/useAuth";
-import Spinner from "../../components/Spinner/Spinner";
+import { Outlet } from "react-router";
 const AuthLayout = () => {
-  const { user, authLoading } = useAuth();
-  const navigate = useNavigate();
-  if (authLoading) {
-    return <Spinner />;
-  }
-  if (user) {
-    // return navigate("/");
-  }
   return (
     <section className="h-screen auth-font">
       <div className="relative bg-base-200 flex justify-center items-center h-full">

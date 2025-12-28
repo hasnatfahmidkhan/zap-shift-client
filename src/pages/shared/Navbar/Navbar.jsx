@@ -14,7 +14,6 @@ import {
   LogOut,
   Map,
   Settings,
-  Tags,
   UserCog,
   UserPen,
 } from "lucide-react";

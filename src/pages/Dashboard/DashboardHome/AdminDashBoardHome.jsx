@@ -794,7 +794,7 @@ const AnalyticsDashboard = () => {
                 </p>
               </div>
               <Link
-                to="/admin/riders"
+                to="/dashboard/approve-rider"
                 className="text-lime-600 text-sm font-medium hover:text-lime-700 transition-colors"
               >
                 View All →
