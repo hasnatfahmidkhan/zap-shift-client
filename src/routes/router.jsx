@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router";
-import Root from "../layouts/root/root";
 import Home from "../pages/Home/Home/Home";
 import Coverage from "../pages/Coverage/Coverage";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
@@ -25,6 +24,7 @@ import TrackParcel from "../pages/TrackParcel/TrackParcel";
 import DashBoardHome from "../pages/Dashboard/DashboardHome/DashBoardHome";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import NotFound from "../pages/NotFound/NotFound";
+import Root from "../layouts/Root/Root";
 
 export const router = createBrowserRouter([
   {

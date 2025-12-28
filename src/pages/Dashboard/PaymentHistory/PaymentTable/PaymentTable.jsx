@@ -300,7 +300,7 @@ const PaymentTable = ({ payments }) => {
         </table>
 
         {/* Empty State for Desktop */}
-        {(!payments || payments.length === 0) && (
+        {(!payments || payments?.length === 0) && (
           <div className="text-center py-12">
             <Receipt className="w-12 h-12 text-gray-300 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-gray-600">

@@ -5,8 +5,9 @@ const AssignRiderModal = ({ riderModalRef, riderLoading, riders, mutate }) => {
     <dialog ref={riderModalRef} className="modal">
       <div className="modal-box max-w-2xl">
         {riderLoading ? (
-          <div className="flex justify-center py-10">
-            <Spinner />
+          <div className="py-20 flex flex-col items-center justify-center gap-4">
+            <span className="loading loading-spinner loading-lg text-primary"></span>
+            <p className="text-sm text-gray-500">Finding nearby riders...</p>
           </div>
         ) : (
           <>

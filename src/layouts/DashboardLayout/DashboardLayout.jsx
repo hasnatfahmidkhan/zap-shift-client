@@ -21,7 +21,6 @@ import DashBoardProfile from "../../components/DashBoardProfile/DashBoardProfile
 import DashIcon from "../../components/DashIcon/DashIcon";
 import useRole from "../../hooks/useRole";
 import Spinner from "../../components/Spinner/Spinner";
-import LogoImg from "../../assets/logo.png";
 import ScrollToTop from "../../../../../Schollership Management System/Schollership Client/src/components/ScrollToUp/ScrollToUp";
 const DashboardLayout = () => {
   const { role, userRoleLoading } = useRole();
@@ -38,6 +37,7 @@ const DashboardLayout = () => {
   if (userRoleLoading) {
     return <Spinner />;
   }
+
   const sidebarLinks = [
     // General routes (visible to all)
     {
