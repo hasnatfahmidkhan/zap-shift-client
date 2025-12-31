@@ -94,7 +94,7 @@ const Navbar = () => {
   const privateLinks = (
     <>
       <li>
-        <Link className={"mb-2.5 bg-base-100 text-[#000000]"} to={"/profile"}>
+        <Link className={"mb-2.5 bg-base-100 text-[#000000]"} to={"/dashboard/profile"}>
           <UserCog />
           Profile
         </Link>
